@@ -1,0 +1,14 @@
+# Package Build Configuration 
+name: PCK.AUTOMIC_JETBRAINS_TEAMCITY
+
+source: ae
+  
+# binary object resource mapping will be defined here
+binaries:
+  
+  - object: RESOURCES/LIBS/PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.STORE
+    resources: 
+      - name: JETBRAINSTEAMCITYTOOL
+        type: BINARY
+        path: tools/target/jetbrainsteamcitytool.jar
+        version: 1.0.0
