@@ -1,0 +1,3 @@
+*** Variables ***
+#---- AE Actions-------------------------
+${_GET_BUILD_STATUS_ACTION}    PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.GET_BUILD_STATUS
