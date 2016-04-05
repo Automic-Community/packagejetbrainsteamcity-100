@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?><uc-export clientvers="11.0.0">
+<JOBI name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.INCLUDE.CHECK_JOBSTATUS">
+<HEADER state="1">
+<Title/>
+<ArchiveKey1/>
+<ArchiveKey2/>
+<OH_SubType/>
+</HEADER>
+<SCRIPT mode="1" state="1">
+<MSCRI><![CDATA[:SWITCH &$PLATFORM#
+:CASE "WINDOWS"
+IF %ERRORLEVEL% NEQ 0 (
+  SET ERRORS=%ERRORLEVEL%
+)
+IF %ERRORS% EQU 0 (
+:INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.INFO
+) ELSE (
+:INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.ERROR
+)
+@set retcode=%ERRORS%
+@if NOT %ERRORS% == 0 goto :retcode
+
+:CASE "UNIX"
+execcode=$?
+if [ "$execcode" -ne "0" ]
+then
+    errors=$execcode
+fi
+if [ $errors -eq 0 ]
+then
+:  INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.INFO
+else
+:  INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.ERROR
+fi
+if [ "$errors" -ne "0" ]
+then
+    exit $errors
+fi
+:OTHER
+:ENDSWITCH]]></MSCRI>
+</SCRIPT>
+<DOCU_Docu state="1" type="text">
+<DOC/>
+</DOCU_Docu>
+</JOBI>
+</uc-export>
