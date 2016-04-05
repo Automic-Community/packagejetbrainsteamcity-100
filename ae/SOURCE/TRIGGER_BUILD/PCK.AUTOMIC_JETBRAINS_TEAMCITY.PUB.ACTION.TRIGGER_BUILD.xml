@@ -56,6 +56,18 @@
 <PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD">
 <PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD">
 <ELEMENT ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="ELEMENT" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+<UC4RB_TMC_BUILD_CONFIGs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_CONFIG#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+<UC4RB_TMC_PASSWORDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_PASSWORD#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+<UC4RB_TMC_URLs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_URL#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+<UC4RB_TMC_USERNAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_USERNAME#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+</PRPTBOX>
+</PROMPTSET>
+</node>
+<node content="1" id="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT" name="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT" parent="PPRPTS" type="PPROMPTSET">
+<PROMPTSET name="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT">
+<PRPTBOX promptset="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT">
+<AGENTs.00 ReadFromTable="OPUD" altview="1" haslist="0" msginsert="" msgnr="" promptname="AGENT#" promptsetname="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT">&amp;AGENT#</AGENTs.00>
+<LOGINs.00 ReadFromTable="OPUD" altview="1" haslist="0" msginsert="" msgnr="" promptname="LOGIN#" promptsetname="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT">&amp;LOGIN#</LOGINs.00>
 </PRPTBOX>
 </PROMPTSET>
 </node>
@@ -103,6 +115,18 @@
 <PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD">
 <PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD">
 <ELEMENT ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="ELEMENT" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+<UC4RB_TMC_BUILD_CONFIGs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_CONFIG#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+<UC4RB_TMC_PASSWORDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_PASSWORD#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+<UC4RB_TMC_URLs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_URL#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+<UC4RB_TMC_USERNAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_USERNAME#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+</PRPTBOX>
+</PROMPTSET>
+</node>
+<node content="1" id="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT" name="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT" parent="PPRPTS" type="PPROMPTSET">
+<PROMPTSET name="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT">
+<PRPTBOX promptset="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT">
+<AGENTs.00 ReadFromTable="OPUD" altview="1" haslist="0" msginsert="" msgnr="" promptname="AGENT#" promptsetname="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT">&amp;AGENT#</AGENTs.00>
+<LOGINs.00 ReadFromTable="OPUD" altview="1" haslist="0" msginsert="" msgnr="" promptname="LOGIN#" promptsetname="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT">&amp;LOGIN#</LOGINs.00>
 </PRPTBOX>
 </PROMPTSET>
 </node>
@@ -136,6 +160,18 @@
 <PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD">
 <PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD">
 <ELEMENT ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="ELEMENT" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+<UC4RB_TMC_BUILD_CONFIGs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_CONFIG#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+<UC4RB_TMC_PASSWORDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_PASSWORD#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+<UC4RB_TMC_URLs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_URL#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+<UC4RB_TMC_USERNAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_USERNAME#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+</PRPTBOX>
+</PROMPTSET>
+</node>
+<node content="1" id="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT" name="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT" parent="PPRPTS" type="PPROMPTSET">
+<PROMPTSET name="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT">
+<PRPTBOX promptset="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT">
+<AGENTs.00 ReadFromTable="OPUD" altview="1" haslist="0" msginsert="" msgnr="" promptname="AGENT#" promptsetname="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT">&amp;AGENT#</AGENTs.00>
+<LOGINs.00 ReadFromTable="OPUD" altview="1" haslist="0" msginsert="" msgnr="" promptname="LOGIN#" promptsetname="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT">&amp;LOGIN#</LOGINs.00>
 </PRPTBOX>
 </PROMPTSET>
 </node>
@@ -196,12 +232,14 @@
 </node>
 <node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD" parent="PRPTS" type="PROMPTSET">
 <PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD" ontop="1">
-<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD" prptmode="1">
-<element altview="!PROMPTVALUE|OPSE_HasList|OPSE_AltView,OPUD_AltView|OPSE_AltView,OPUD_AltView" haslist="OPSE_HasList" msginsert="!NOP|" msgnr="!NOP|" promptname="OPSE_Name">
-<values>
-<value>!PROMPTVALUE|OPSE_HasList|OPSEA_Value,OPUDA_Value|OPSE_Value,OPUD_Value</value>
-</values>
-</element>
+<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD" prptmode="1"/>
+</PROMPTSET>
+</node>
+<node content="1" id="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT" name="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT" parent="PRPTS" type="PROMPTSET">
+<PROMPTSET name="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT" ontop="1">
+<PRPTBOX promptset="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT" prptmode="1">
+<AGENTs.00 altview="1" haslist="0">&amp;AGENT#</AGENTs.00>
+<LOGINs.00 altview="1" haslist="0">&amp;LOGIN#</LOGINs.00>
 </PRPTBOX>
 </PROMPTSET>
 </node>
