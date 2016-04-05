@@ -1,0 +1,4 @@
+*** Variables ***
+#---- AE Actions-------------------------
+${_RETRIEVE_BUILD_ARCHIVE_ACTION}    PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.RETRIEVE_BUILD_ARCHIVE
+
