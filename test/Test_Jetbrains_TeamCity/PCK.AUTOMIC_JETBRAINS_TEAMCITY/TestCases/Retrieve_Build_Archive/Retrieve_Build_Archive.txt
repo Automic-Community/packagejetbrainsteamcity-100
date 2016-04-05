@@ -1,0 +1,82 @@
+*** Settings ***
+Suite Setup       Startup
+Suite Teardown    Teardown
+Force Tags        retrieve_build_archive
+Default Tags
+Test Template     Retrieve Build Archive Template
+Library           com.automic.robot.itpa.ItpaLibrary
+Library           String
+Library           DateTime
+Resource          ../../Resources/messages.txt
+Resource          ../../Resources/keywords.txt
+Resource          ../../Resources/variables.txt
+Resource          ../../Resources/actions.txt
+
+*** Test Cases ***    OK_NOK    TeamCityURL        Username                Password                BuildID        LocationToSave    ArchiveName
+Retrieve Build Archive also Asserting Username, Password, Location To Save and Archive Name as Optional Field
+                      OK        ${URL_TeamCity}    ${EMPTY}                ${EMPTY}                ${ID_Build}    ${EMPTY}          ${EMPTY}
+
+Retrieve Build Archive while Providing All the Inputs
+                      OK        ${URL_TeamCity}    ${Username_TeamCity}    ${Password_TeamCity}    ${ID_Build}    ${EXECDIR}        BuildArchive
+
+Assertion with Invalid TeamCity URL
+                      NOK       Invalid            ${Username_TeamCity}    ${Password_TeamCity}    ${ID_Build}    ${EMPTY}          ${EMPTY}
+
+Assertion with Non-Existing Username
+                      NOK       ${URL_TeamCity}    Invalid                 ${Password_TeamCity}    ${ID_Build}    ${EMPTY}          ${EMPTY}
+
+Assertion with Invalid Password
+                      NOK       ${URL_TeamCity}    ${Username_TeamCity}    Invalid                 ${ID_Build}    ${EMPTY}          ${EMPTY}
+
+Assertion with Non-Existing Build ID
+                      NOK       ${URL_TeamCity}    ${Username_TeamCity}    ${Password_TeamCity}    Invalid        ${EMPTY}          ${EMPTY}
+
+Assertion with Non-Existing Location
+                      NOK       ${URL_TeamCity}    ${Username_TeamCity}    ${Password_TeamCity}    ${ID_Build}    Invalid           ${EMPTY}
+
+Assert Behavior of Action when Username is Provided and Password is not Provided
+                      NOK       ${URL_TeamCity}    ${Username_TeamCity}    ${EMPTY}                ${ID_Build}    ${EMPTY}          ${EMPTY}
+
+Assert Behavior of Action when Username is not Provided and Password is Provided
+                      NOK       ${URL_TeamCity}    ${EMPTY}                ${Password_TeamCity}    ${ID_Build}    ${EMPTY}          ${EMPTY}
+
+Assert TeamCity URL as Mandatory field
+                      OTHER     ${EMPTY}           ${Username_TeamCity}    ${Password_TeamCity}    ${ID_Build}    ${EMPTY}          ${EMPTY}
+
+Assert Build ID as Mandatory field
+                      OTHER     ${URL_TeamCity}    ${Username_TeamCity}    ${Password_TeamCity}    ${EMPTY}       ${EMPTY}          ${EMPTY}
+
+*** Keywords ***
+Startup
+    Log    *******Start Test "RETRIEVE BUILD ARCHIVE"*******
+    Log    *******Connect to AE*******
+    Connect AE
+
+Retrieve Build Archive Template
+    [Arguments]    ${OK_NOK}    ${TeamCity_URL}    ${Username}    ${Password}    ${Build_ID}    ${Location_To_Save}
+    ...    ${Archive_Name}
+    [Documentation]    This test will retrieves build as archive from TeamCity.
+    ...    Preconditions: Used TeamCity URL and Build ID should exist.
+    ...    -${OK_NOK}: Boolean value indicate if the action is ENDED_OK or ENDED_NOT_OK. Value of this variable should be OK, NOK or OTHER.
+    ...    -${TeamCity_URL}: This field specifies TeamCity URL.
+    ...    -${Username}: This field specifies Username for TeamCity.
+    ...    -${Password}: This field specifies the password for TeamCity user.
+    ...    -${Build_ID}: This field specifies id of the build which you want to retrieve as archive.
+    ...    -${Location_To_Save}: This field specifies path where you want to save the retrieved archive.
+    ...    -${Archive_Name}: This field specifies name you want to keep for retrieved archive.
+    Generate String
+    Action Create    ${_RETRIEVE_BUILD_ARCHIVE_ACTION}
+    TeamCity Credentials
+    Run Keyword If    '${Build_ID}' == 'Invalid'    Action Set    &UC4RB_TMC_BUILD_ID#    ${Generated_Name}_${Time}    ELSE    Action Set
+    ...    &UC4RB_TMC_BUILD_ID#    ${Build_ID}
+    Run Keyword If    '${Location_To_Save}' == 'Invalid'    Action Set    &UC4RB_TMC_ARTIFACT_DIR#    ${Generated_Name}_${Time}    ELSE    Action Set
+    ...    &UC4RB_TMC_ARTIFACT_DIR#    ${Location_To_Save}
+    Action Set    &UC4RB_TMC_ARTIFACT_NAME#    ${Archive_Name}
+    Set Overwrite Agent
+    Action Execute
+    Run Keyword If    '${OK_NOK}' == 'OK'    Assert Success    ELSE IF    '${OK_NOK}' == 'NOK'    Assert Failure    ELSE
+    ...    Assert Mandatory
+    Run Keyword If    '${OK_NOK}' == 'OK'    Action Object Variable Should Be Found    &UC4RB_TMC_ARTIFACT_PATH#    ELSE    Action Object Variable Should Not Be Found    &UC4RB_TMC_ARTIFACT_PATH#
+
+Teardown
+    Log    *******End Test "RETRIEVE BUILD ARCHIVE"*******
