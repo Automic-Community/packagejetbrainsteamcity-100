@@ -14,7 +14,7 @@ Resource          ../../Resources/actions.txt
 
 *** Test Cases ***    OK_NOK    TeamCityURL        Username                Password                BuildID        LocationToSave    ArchiveName
 Retrieve Build Archive also Asserting Username, Password, Location To Save and Archive Name as Optional Field
-                      OK        ${URL_TeamCity}    ${Username_TeamCity}    ${Password_TeamCity}    ${ID_Build}    ${EMPTY}          ${EMPTY}
+                      OK        ${URL_TeamCity}    ${EMPTY}                ${EMPTY}                ${ID_Build}    ${EMPTY}          ${EMPTY}
 
 Retrieve Build Archive while Providing All the Inputs
                       OK        ${URL_TeamCity}    ${Username_TeamCity}    ${Password_TeamCity}    ${ID_Build}    ${EXECDIR}        BuildArchive
