@@ -14,7 +14,7 @@ Resource          ../../Resources/actions.txt
 
 *** Test Cases ***    OK_NOK    TeamCityURL        Username                Password                BuildID
 Get Build Status with Build ID also Asserting Username and Password as Optional Field
-                      OK        ${URL_TeamCity}    ${Username_TeamCity}    ${Password_TeamCity}    ${ID_Build}
+                      OK        ${URL_TeamCity}    ${EMPTY}                ${EMPTY}                ${ID_Build}
 
 Get Build Status while Providing Username and Password
                       OK        ${URL_TeamCity}    ${Username_TeamCity}    ${Password_TeamCity}    ${ID_Build}
