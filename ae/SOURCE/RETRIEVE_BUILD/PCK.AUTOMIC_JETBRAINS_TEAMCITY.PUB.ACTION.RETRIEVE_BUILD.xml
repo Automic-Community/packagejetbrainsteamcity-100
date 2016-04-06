@@ -64,7 +64,6 @@
 <node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD" parent="PPRPTS" type="PPROMPTSET">
 <PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD">
 <PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD">
-<ELEMENT ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="ELEMENT" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
 <UC4RB_TMC_ARTIFACT_DIRs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_ARTIFACT_DIR#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
 <UC4RB_TMC_ARTIFACT_NAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_ARTIFACT_NAME#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
 <UC4RB_TMC_BUILD_IDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_ID#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
@@ -131,7 +130,6 @@
 <node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD" parent="PPRPTS" type="PPROMPTSET">
 <PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD">
 <PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD">
-<ELEMENT ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="ELEMENT" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
 <UC4RB_TMC_ARTIFACT_DIRs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_ARTIFACT_DIR#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
 <UC4RB_TMC_ARTIFACT_NAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_ARTIFACT_NAME#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
 <UC4RB_TMC_BUILD_IDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_ID#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
@@ -214,7 +212,6 @@
 <node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD" parent="PPRPTS" type="PPROMPTSET">
 <PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD">
 <PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD">
-<ELEMENT ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="ELEMENT" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
 <UC4RB_TMC_ARTIFACT_DIRs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_ARTIFACT_DIR#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
 <UC4RB_TMC_ARTIFACT_NAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_ARTIFACT_NAME#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
 <UC4RB_TMC_BUILD_IDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_ID#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
@@ -324,7 +321,45 @@
 <MSCRI/>
 </SCRIPT>
 <DOCU_Docu state="1" type="text">
-<DOC/>
+<DOC><![CDATA[= Action name =
+PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.RETRIEVE_BUILD
+
+= General description =
+This action is used to retrieve build artifatcs as an archive from Teamcity as per the specified inputs. Output of this action will be an AE variable having retrieved archive file path.
+Archive type will be of type 'zip' for retrieved artifact.
+    
+= Failure Conditions =
+* If only one field is provided from username and password
+* If Archive file name contains any dot (.)
+* If Archive DIR does not contain slash as per the OS type.
+* If Archive file name contains any dot (.)
+* If archive file is not successfully created at specified archive path. 
+
+= Inputs =
+* Server IP or DNS  	: Specify URL to the TeamCity REST API endpoint. Eg. http://127.0.0.1/teamcity.
+* Username	    	: Specify username for connections.
+* Password	   	: Password to your username.
+* Build Id	   	: Provide ID of the build that you want to retrieve as an archive. E.g 2
+* Location to save	: Specify location to save retrieved archive file. E.g /home/ar/agent/temp
+* Archive file name  	: Specify name for the archive file.It should not include extension. E.g myBuild
+* Overwrite Agent   	: Overwrites the default agent
+* Overwrite Login   	: Overwrites the default login
+
+= Behaviour =
+(none)
+
+=Return Value=
+* UC4RB_TMC_ARCHIVE_PATH = File path of retrieved archive
+
+= Outputs =
+* Return code is 0 in case of success.
+* Return code is 1 in case of failure.
+
+= Logging =
+Logs will be displayed in the AE report.
+
+= Example =
+(none)]]></DOC>
 </DOCU_Docu>
 </JOBP>
 </uc-export>
