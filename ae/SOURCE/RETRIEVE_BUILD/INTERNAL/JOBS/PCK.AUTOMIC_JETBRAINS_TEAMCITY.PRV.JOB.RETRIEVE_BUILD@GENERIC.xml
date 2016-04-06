@@ -137,50 +137,32 @@
 :  SET &COUNT# = &COUNT#+1
 :ENDIF
 
-:  SET &UC4RB_CF_RETCODE# = "0"
+:SET &UC4RB_TMC_RETCODE# = "0"
 
 :IF &COUNT# = 1
-:  SET &UC4RB_CF_RETCODE# = "1"
+:  SET &UC4RB_TMC_RETCODE# = "1"
 :  SET &UC4RB_LOGGING_ERROR# = "EITHER PROVIDE BOTH USERNAME AND PASSWORD OR BOTH CAN BE EMPTY"
 :  INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.ERROR
 :ELSE
 !   Archive name validation (It should not contain any dot)
 :   SET &POS# = STR_FIND(&UC4RB_TMC_ARTIFACT_NAME#,".")
 :   IF &POS# <> 0
-:      SET &UC4RB_CF_RETCODE# = "1"
+:      SET &UC4RB_TMC_RETCODE# = "1"
 :      SET &UC4RB_LOGGING_ERROR# = "PROVIDE ARCHIVE FILE NAME WITHOUT EXTENSION"
 :      INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.ERROR
 :   ELSE
 !      Archive DIR validation check as per the OS type
-:      IF &UC4RB_AGENT_OS# = "WINDOWS"
-:         IF STR_ENDS_WITH(&UC4RB_TMC_ARTIFACT_DIR#,"\") = "N"
-:             IF STR_ENDS_WITH(&UC4RB_TMC_ARTIFACT_DIR#,"/") = "Y"
-:               SET &UC4RB_CF_RETCODE# = "1"
-:               SET &UC4RB_LOGGING_ERROR# = "INVALID ARCHIVE DIR"
-:               INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.ERROR
-:             ENDIF
-:         SET &FINAL_ARTIFACT_DIR# = STR_CAT (&UC4RB_TMC_ARTIFACT_DIR#,"\")
-:         ELSE
-:           SET &FINAL_ARTIFACT_DIR# = &UC4RB_TMC_ARTIFACT_DIR#
-:         ENDIF
-:      ELSE
-:         IF &UC4RB_AGENT_OS# = "UNIX"
-:            IF STR_ENDS_WITH(&UC4RB_TMC_ARTIFACT_DIR#,"/") = "N"
-:               IF STR_ENDS_WITH(&UC4RB_TMC_ARTIFACT_DIR#,"\") = "Y"
-:                 SET &UC4RB_CF_RETCODE# = "1"
-:                 SET &UC4RB_LOGGING_ERROR# = "INVALID ARCHIVE DIR"
-:                 INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.ERROR
-:               ENDIF
-:            SET &FINAL_ARTIFACT_DIR# = STR_CAT (&UC4RB_TMC_ARTIFACT_DIR#,"\")
-:            ENDIF
-:         ELSE
-:            SET &FINAL_ARTIFACT_DIR# = &UC4RB_TMC_ARTIFACT_DIR#
-:         ENDIF
-:      ENDIF
+:       IF &UC4RB_AGENT_OS# = "UNIX"
+:          IF STR_ENDS_WITH(&UC4RB_TMC_ARTIFACT_DIR#,"/") = "N"
+:             SET &FINAL_ARTIFACT_DIR# = STR_CAT (&UC4RB_TMC_ARTIFACT_DIR#,"/")
+:          ENDIF
+:       ENDIF
 :   ENDIF
 :ENDIF
 
-:  IF &UC4RB_CF_RETCODE# = "0"
+:SET &FINAL_ARTIFACT_DIR# = &UC4RB_TMC_ARTIFACT_DIR#
+
+:  IF &UC4RB_TMC_RETCODE# = "0"
 !-------------------------------------Creating Artifact path-------------------------------------------------------------------------------------------------------------------------
 !      Config Archive file
 :      IF &UC4RB_TMC_ARTIFACT_NAME# EQ ""

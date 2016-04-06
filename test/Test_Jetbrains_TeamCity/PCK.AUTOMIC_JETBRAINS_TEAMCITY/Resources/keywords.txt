@@ -7,10 +7,15 @@ Connect AE
 
 Set Overwrite Agent
     Run Keyword If    '${ENV}' == 'WIN'    Set Overwrite Agent WIN
+    Run Keyword If    '${ENV}' == 'UNIX'    Set Overwrite Agent UNIX
 
 Set Overwrite Agent WIN
     Action Set    &AGENT#    ${_PROMPTSET_AGENT_WIN}
     Action Set    &LOGIN#    ${_PROMPTSET_LOGIN_WIN}
+
+Set Overwrite Agent UNIX
+    Action Set    &AGENT#    ${_PROMPTSET_AGENT_UNIX}
+    Action Set    &LOGIN#    ${_PROMPTSET_LOGIN_UNIX}
 
 Action Report Should Contain
     [Arguments]    ${text}
