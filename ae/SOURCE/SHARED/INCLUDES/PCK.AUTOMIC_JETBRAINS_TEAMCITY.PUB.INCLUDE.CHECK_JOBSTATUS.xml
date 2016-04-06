@@ -11,6 +11,8 @@
 :CASE "WINDOWS"
 IF %ERRORLEVEL% NEQ 0 (
   SET ERRORS=%ERRORLEVEL%
+) ELSE IF %ERRORS% EQU 0 (
+  SET ERRORS=&UC4RB_TMC_RETCODE#
 )
 IF %ERRORS% EQU 0 (
 :INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.INFO
@@ -25,6 +27,9 @@ execcode=$?
 if [ "$execcode" -ne "0" ]
 then
     errors=$execcode
+elif [ $errors -eq 0 ]
+then
+    errors=&UC4RB_TMC_RETCODE#
 fi
 if [ $errors -eq 0 ]
 then
