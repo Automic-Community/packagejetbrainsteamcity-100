@@ -159,6 +159,8 @@ IF NOT %ERRORLEVEL% == 0 (
 
 echo "INFO: CURL CMD: &UC4RB_TMC_CURL_CMD#"
 
+echo -n "UC4RB_TMC_RESP::="
+
 &UC4RB_TMC_CURL_CMD# -u "&UC4RB_TMC_USERNAME#:$UC4_DECRYPTED_PWD" -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%{http_code}\n"
 
 if [ "$?" -gt "0" ]
