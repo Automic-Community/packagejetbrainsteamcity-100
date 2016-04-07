@@ -20,7 +20,7 @@
 
 Following actions are supported:
 
-* Action Name: PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.GET_BUILD_STATE_AND_STATUS
+* Action Name: PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.GET_BUILD_STATE_STATUS
 * Action Description: This action gets the build's state and its status for a given build Id on TeamCity.
 ]]></DOC>
 </DOCU_Docu>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-15" standalone="no"?><uc-export clientvers="11.0.0">
-<PRPT name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_AND_STATUS">
+<PRPT name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS">
 <HEADER state="1">
 <Title>Get build state and status</Title>
 <ArchiveKey1/>
