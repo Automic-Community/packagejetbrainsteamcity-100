@@ -7,23 +7,38 @@
 <OH_SubType/>
 </HEADER>
 <DOCU_Docu state="1" type="text">
-<DOC><![CDATA[About Automic's Jetbrains Teamcity Package
+<DOC><![CDATA[About Automic's JetBrains TeamCity Package
 ================================
+TeamCity is a Java-based build management and continuous integration server from JetBrains. With this package we automate the following features:
+* Trigger Build
+* Get Build State and Status
+* Retrieve Build Artifacts
 
 
-=Supported versions=
+= Supported versions =
+Jetbrains TeamCity REST API 9.0
 
+= Limitations =
+(none)
 
-=Limitations=
- 
+= Setup =
+* Oracle JDK 1.7 or higher must be installed on Agent OS and "java" must be set as executable on the same.
 
-=Setup=
+* The Agent should be able to access the TeamCity REST endpoint in order to make HTTP requests. Also you should have authentication details to REST endpoint where guest login is not allowed.
 
-=Actions=
-Following actions are supported for Jetbrains Teamcity:
+* cURL should be installed on Agent OS. 
+	- To install cURL on windows download package from http://curl.haxx.se/download.html and unzip it at an appropriate location. Also update the PATH environment variable with location of curl.exe.
+	- To install cURL on linux do "sudo apt-get update" and followed by "sudo apt-get install curl".
+
+= Actions =
+
+Following actions are supported:
 
 * Action Name: PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.TRIGGER_BUILD
-* Action Description: This action is used to trigger a build on Teamcity based on specified inputs.]]></DOC>
+* Action Description: This action is used to trigger a build on Teamcity based on specified inputs.
+
+* Action Name: PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.GET_BUILD_STATE_STATUS
+* Action Description: This action gets the build's state and its status for a given build Id on TeamCity.]]></DOC>
 </DOCU_Docu>
 </DOCU>
 </uc-export>
