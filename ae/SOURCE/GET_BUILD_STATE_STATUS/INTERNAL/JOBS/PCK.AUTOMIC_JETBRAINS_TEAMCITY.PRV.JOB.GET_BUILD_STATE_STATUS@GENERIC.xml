@@ -173,7 +173,6 @@
 !        -------------------------------------Execute cURL cmd based on AGENT OS--------------------------------------------------------------------------------------
 :        SET &UC4RB_TMC_ERROR_MSG# = "UNABLE TO CONNECT TO TEAMCITY. PLEASE CHECK INPUT PARAMETERS."
 
-:        SET &UC_WIN_TYP = GET_SCRIPT_VAR("UC_WIN_TYP")
 :        IF &UC4RB_AGENT_OS# = "WINDOWS"
                echo | set /p="UC4RB_TMC_RESP::="
 :              IF &CRED# EQ 0
