@@ -131,14 +131,7 @@
 : IF &CRED# EQ 1
 :        SET &UC4RB_LOGGING_ERROR# = "EITHER PROVIDE BOTH OR NONE OF THE OPTIONS(USERNAME,PASSWORD)"
 :        INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.ERROR
-:        SWITCH &$PLATFORM#
-:            CASE "WINDOWS"
-                  @echo off
-                  SET ERRORS=1
-:            CASE "UNIX"
-                  errors=1
-:            OTHER
-:        ENDSWITCH
+:        SET &UC4RB_TMC_RETCODE# = 1
 : ELSE
 !        ----------------------------- Creating cURL command to call Teamcity REST api ---------------------------------------------------------------------------------
 
@@ -169,15 +162,17 @@
 
 !        Forming teamcity URL
 :        SET &TMC_BUILD_STATUS_URL# = STR_CAT(&TMC_URL#, "/&AUTH#/app/rest/builds/id:&UC4RB_ESCAPED_STRING#")
-:        SET &TMC_CURL_CMD# = STR_CAT(&TMC_CURL_CMD#, &TMC_BUILD_STATUS_URL#)
+:        SET &TMC_CURL_CMD# = STR_CAT(&TMC_CURL_CMD#, """&TMC_BUILD_STATUS_URL#""")
 
 
-:        SET &TMC_CURL_CMD# = STR_CAT(&TMC_CURL_CMD#, " --request GET --header ""Content-Type:application/xml"" --silent")
+:        SET &TMC_CURL_CMD# = STR_CAT(&TMC_CURL_CMD#, " --request GET --silent")
 
 !        Logging the cURL command formed
          echo "CURL CMD: &TMC_CURL_CMD#"
 
 !        -------------------------------------Execute cURL cmd based on AGENT OS--------------------------------------------------------------------------------------
+:        SET &UC4RB_TMC_ERROR_MSG# = "UNABLE TO CONNECT TO TEAMCITY. PLEASE CHECK INPUT PARAMETERS."
+
 :        SET &UC_WIN_TYP = GET_SCRIPT_VAR("UC_WIN_TYP")
 :        IF &UC4RB_AGENT_OS# = "WINDOWS"
                echo | set /p="UC4RB_TMC_RESP::="
@@ -188,6 +183,7 @@
 :              ENDIF
 
                IF NOT %ERRORLEVEL% == 0 (
+                      echo "ERROR: &UC4RB_TMC_ERROR_MSG#"
                       SET ERRORS=1
                )
 :        ENDIF
@@ -202,6 +198,7 @@
 
                if [ "$?" -gt "0" ]
                then
+                      echo "ERROR: &UC4RB_TMC_ERROR_MSG#"
                       errors=1
                fi
 :       ENDIF

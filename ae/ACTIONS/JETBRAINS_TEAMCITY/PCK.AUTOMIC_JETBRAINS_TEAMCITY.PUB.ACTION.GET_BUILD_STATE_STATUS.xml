@@ -291,7 +291,7 @@
 PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.GET_BUILD_STATE_STATUS
 
 = General description =
-This action gets the build's state and its status for a given build Id on TeamCity.
+This action gets the build's state and its status for a given build Id on TeamCity. User can anonymously access the TeamCity to get the build details.
 
 = Failure Conditions =
 * If user provides an extra trailing '/' in the TeamCity URL. (E.g. http://127.0.0.1/teamcity/)
@@ -310,8 +310,8 @@ This action gets the build's state and its status for a given build Id on TeamCi
 
 =Return Value=
 The action will publish the following AE variable:
-UC4RB_TMC_BUILD_STATUS : Build status for the given build Id.
-UC4RB_TMC_BUILD_STATE : Build state for the given build id.
+UC4RB_TMC_BUILD_STATUS : Build status for the given build Id. Possible values are SUCCESS and FAILURE.
+UC4RB_TMC_BUILD_STATE : Build state for the given build id. Possible values are QUEUED, RUNNING and FINISHED.
 
 = Outputs =
 * Return code is 0 in case of success.
