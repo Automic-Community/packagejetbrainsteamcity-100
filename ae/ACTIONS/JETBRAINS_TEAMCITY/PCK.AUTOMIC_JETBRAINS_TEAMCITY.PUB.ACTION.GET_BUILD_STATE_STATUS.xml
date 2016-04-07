@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-15" standalone="no"?><uc-export clientvers="11.0.0">
-<JOBP AllowExternal="1" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.TRIGGER_BUILD">
+<JOBP AllowExternal="1" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.GET_BUILD_STATE_STATUS">
 <XHEADER state="1">
-<Title>Trigger a build on Teamcity</Title>
+<Title>Get build state and status</Title>
 <ArchiveKey1/>
 <ArchiveKey2/>
 <Active>1</Active>
@@ -52,19 +52,19 @@
 <result ChkRExec="0" RElseHalt="0" RElseIgn="0" RElseJPAbend="0" RExecFlag="0" RExecute="" RRepMTimes="0" RRepOn="0" RRepWait="0" RWhen=""/>
 <dynvalues>
 <dyntree>
-<node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN" parent="PPRPTS" type="PPROMPTSET">
-<PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN">
-<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN">
-<UC4RB_TMC_PASSWORDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_PASSWORD#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN"/>
-<UC4RB_TMC_URLs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_URL#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN"/>
-<UC4RB_TMC_USERNAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_USERNAME#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN"/>
+<node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS" parent="PPRPTS" type="PPROMPTSET">
+<PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS">
+<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS">
+<UC4RB_TMC_PASSWORDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_PASSWORD#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS"/>
+<UC4RB_TMC_URLs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_URL#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS"/>
+<UC4RB_TMC_USERNAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_USERNAME#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS"/>
 </PRPTBOX>
 </PROMPTSET>
 </node>
-<node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD" parent="PPRPTS" type="PPROMPTSET">
-<PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD">
-<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD">
-<UC4RB_TMC_BUILD_CONFIGs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_CONFIG#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+<node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS" parent="PPRPTS" type="PPROMPTSET">
+<PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS">
+<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS">
+<UC4RB_TMC_BUILD_IDs.00 ReadFromTable="OPUD" altview="1" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_ID#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS">&amp;UC4RB_TMC_BUILD_ID#</UC4RB_TMC_BUILD_IDs.00>
 </PRPTBOX>
 </PROMPTSET>
 </node>
@@ -86,7 +86,7 @@
 </PostCon>
 </postconditions>
 </task>
-<task Alias="TRIGGER_BUILD" BranchType="0" Col="2" Lnr="2" OType="JOBS" Object="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.JOB.TRIGGER_BUILD@GENERIC" ParentAlias="" ParentObject="" Row="1" Text2="">
+<task Alias="GET_BUILD_STATE_STATUS" BranchType="0" Col="2" Lnr="2" OType="JOBS" Object="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.JOB.GET_BUILD_STATE_STATUS@GENERIC" ParentAlias="" ParentObject="" Row="1" Text2="">
 <checkpoint RollbackFlag="1" RunPerPatch="0" RunPerTarget="0" TcpADays="0" TcpATime="00:00" TcpATimeTZ="" TcpExecute="" TcpOn="0" promptatgen="0" showprompt="0"/>
 <after ActFlg="1" AtimOn="0" ErlstStDays="0" ErlstStTime="00:00" ErlstStTimeTZ="" HoldFlg="0"/>
 <when ChkWhenExec="0" LtstEnd="0" LtstEndDays="0" LtstEndTime="00:00" LtstSt="0" LtstStDays="0" LtstStTime="00:00" LtstTimeTZ="" WCTypeAND="1" WCTypeOR="0" WElseA="1" WElseH="0" WElseS="0" WElseX="0" WhenExecute="" WtimOn="0"/>
@@ -116,19 +116,19 @@
 </node>
 <node content="1" id="PRPTS" name="PromptSets" parent="" pref="1" type="PROMPTSET"/>
 <node content="0" id="PPRPTS" name="Parent PromptSets" parent="" type="PPROMPTSET"/>
-<node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN" parent="PPRPTS" type="PPROMPTSET">
-<PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN">
-<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN">
-<UC4RB_TMC_PASSWORDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_PASSWORD#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN"/>
-<UC4RB_TMC_URLs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_URL#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN"/>
-<UC4RB_TMC_USERNAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_USERNAME#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN"/>
+<node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS" parent="PPRPTS" type="PPROMPTSET">
+<PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS">
+<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS">
+<UC4RB_TMC_PASSWORDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_PASSWORD#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS"/>
+<UC4RB_TMC_URLs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_URL#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS"/>
+<UC4RB_TMC_USERNAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_USERNAME#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS"/>
 </PRPTBOX>
 </PROMPTSET>
 </node>
-<node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD" parent="PPRPTS" type="PPROMPTSET">
-<PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD">
-<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD">
-<UC4RB_TMC_BUILD_CONFIGs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_CONFIG#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+<node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS" parent="PPRPTS" type="PPROMPTSET">
+<PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS">
+<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS">
+<UC4RB_TMC_BUILD_IDs.00 ReadFromTable="OPUD" altview="1" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_ID#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS">&amp;UC4RB_TMC_BUILD_ID#</UC4RB_TMC_BUILD_IDs.00>
 </PRPTBOX>
 </PROMPTSET>
 </node>
@@ -146,21 +146,7 @@
 <calendars CCTypeAll="0" CCTypeExt="0" CCTypeNone="0" CCTypeOne="1" CaleOn="0"/>
 <postconditions>
 <PostCon>
-<conditions id="CONDITIONS">
-<action active="1" id="EXECUTE OBJECT" once="0" type="A" uiinfo="">
-<params>
-<param altview="0" name="XC_P01" type="V" value="PCK.AUTOMIC_FILESYSTEM.PUB.ACTION.DELETE"/>
-<param altview="0" name="XC_P02" type="S" value="#915032:getobjprompt:0:3"/>
-<param altview="0" name="XC_P03" type="V" value="##911010">
-<param name="AGENTs.00" value="&amp;AGENT#" vname="XC_P03"/>
-<param name="LOGINs.00" value="&amp;LOGIN#" vname="XC_P03"/>
-<param name="UC4RB_DIR_FILE_RM_FAILs.00" value="NO" vname="XC_P03"/>
-<param name="UC4RB_DIR_FILE_RM_NAMEs.00" value="&amp;UC4RB_TMC_CONFIGFILE#" vname="XC_P03"/>
-</param>
-<param altview="0" name="XC_P04" type="V" value="DEL_FILE"/>
-</params>
-</action>
-</conditions>
+<conditions id="CONDITIONS"/>
 </PostCon>
 </postconditions>
 </task>
@@ -180,19 +166,19 @@
 <result ChkRExec="0" RElseHalt="0" RElseIgn="0" RElseJPAbend="0" RExecFlag="0" RExecute="" RRepMTimes="0" RRepOn="0" RRepWait="0" RWhen=""/>
 <dynvalues>
 <dyntree>
-<node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN" parent="PPRPTS" type="PPROMPTSET">
-<PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN">
-<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN">
-<UC4RB_TMC_PASSWORDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_PASSWORD#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN"/>
-<UC4RB_TMC_URLs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_URL#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN"/>
-<UC4RB_TMC_USERNAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_USERNAME#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN"/>
+<node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS" parent="PPRPTS" type="PPROMPTSET">
+<PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS">
+<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS">
+<UC4RB_TMC_PASSWORDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_PASSWORD#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS"/>
+<UC4RB_TMC_URLs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_URL#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS"/>
+<UC4RB_TMC_USERNAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_USERNAME#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS"/>
 </PRPTBOX>
 </PROMPTSET>
 </node>
-<node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD" parent="PPRPTS" type="PPROMPTSET">
-<PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD">
-<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD">
-<UC4RB_TMC_BUILD_CONFIGs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_CONFIG#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD"/>
+<node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS" parent="PPRPTS" type="PPROMPTSET">
+<PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS">
+<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS">
+<UC4RB_TMC_BUILD_IDs.00 ReadFromTable="OPUD" altview="1" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_ID#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS">&amp;UC4RB_TMC_BUILD_ID#</UC4RB_TMC_BUILD_IDs.00>
 </PRPTBOX>
 </PROMPTSET>
 </node>
@@ -259,14 +245,16 @@
 <Mode>0</Mode>
 </VALUE>
 </node>
-<node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN" parent="PRPTS" type="PROMPTSET">
-<PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN" ontop="1">
-<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD_CONN" prptmode="1"/>
+<node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS" parent="PRPTS" type="PROMPTSET">
+<PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS" ontop="1">
+<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.PROMPTSET.CONNECTION_DETAILS" prptmode="1"/>
 </PROMPTSET>
 </node>
-<node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD" parent="PRPTS" type="PROMPTSET">
-<PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD" ontop="1">
-<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.TRIGGER_BUILD" prptmode="1"/>
+<node content="1" id="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS" name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS" parent="PRPTS" type="PROMPTSET">
+<PROMPTSET name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS" ontop="1">
+<PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS" prptmode="1">
+<UC4RB_TMC_BUILD_IDs.00 altview="1" haslist="0">&amp;UC4RB_TMC_BUILD_ID#</UC4RB_TMC_BUILD_IDs.00>
+</PRPTBOX>
 </PROMPTSET>
 </node>
 <node content="1" id="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT" name="PCK.ITPA_SHARED.PRV.PROMPTSET.OVERWRITE_AGENT" parent="PRPTS" type="PROMPTSET">
@@ -300,37 +288,30 @@
 </SCRIPT>
 <DOCU_Docu state="1" type="text">
 <DOC><![CDATA[= Action name =
-PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.TRIGGER_BUILD
+PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.GET_BUILD_STATE_STATUS
 
 = General description =
-This action is used to trigger a build in Teamcity based on specified inputs. User must provide Connection details and Build node configuration. The sample XML of build node is:
-
-<build personal="true" branchName="logicBuildBranch">
-    <buildType id="buildConfID"/>
-    <agent id="3"/>
-    <comment><text>build triggering comment</text></comment>
-    <properties>
-        <property name="env.myEnv" value="bbb"/>
-    </properties>
-</build>
+This action gets the build's state and its status for a given build Id on TeamCity. User can anonymously access the TeamCity to get the build details.
 
 = Failure Conditions =
-* No Build configuration found for the specified input parameters.
+* If user provides an extra trailing '/' in the TeamCity URL. (E.g. http://127.0.0.1/teamcity/)
+* If only one of the option(Username, Password) is provided.
 
 = Inputs =
-* Teamcity URL  		: Specify URL to the TeamCity REST API endpoint. E.g. www.myvcenter.com
-* Username	    		: Specify username for connections. E.g. username
-* Password	    		: Password to your username.
-* Build Configuration  		: Provide XML formatted configuration for the build.
-* Overwrite Agent   		: Overwrites the default agent
-* Overwrite Login   		: Overwrites the default login
+* Teamcity URL		: Specify URL to the TeamCity REST API endpoint.E.g. http://127.0.0.1/teamcity
+* Username	    	: Specify username for connections.
+* Password	    	: Password to your username.
+* Build Id	  	: Provide ID of the build that you want to check the status. E.g. 2
+* Overwrite Agent   	: Overwrites the default agent
+* Overwrite Login   	: Overwrites the default login
 
 = Behaviour =
 (none)
 
 =Return Value=
 The action will publish the following AE variable:
-UC4RB_TMC_BUILD_ID : this will contain the build id generated after triggering build
+UC4RB_TMC_BUILD_STATUS : Build status for the given build Id. Possible values are SUCCESS and FAILURE.
+UC4RB_TMC_BUILD_STATE : Build state for the given build id. Possible values are QUEUED, RUNNING and FINISHED.
 
 = Outputs =
 * Return code is 0 in case of success.

@@ -9,3 +9,5 @@ ${Username_TeamCity}    admin
 ${Password_TeamCity}    admin
 #----Get Build Status and Retrieve Build Archive------------------------------------------------------------
 ${ID_Build}       2
+#----Trigger Build------------------------------------------------------------------------------------------
+${Config_Build}    <build><buildType id="Mvnproject_Build"/></build>
