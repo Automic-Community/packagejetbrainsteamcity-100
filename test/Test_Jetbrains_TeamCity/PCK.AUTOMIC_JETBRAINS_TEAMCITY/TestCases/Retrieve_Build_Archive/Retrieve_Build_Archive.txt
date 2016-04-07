@@ -34,6 +34,9 @@ Assertion with Non-Existing Build ID
 Assertion with Non-Existing Location
                       NOK       ${URL_TeamCity}    ${Username_TeamCity}    ${Password_TeamCity}    ${ID_Build}    Invalid           ${EMPTY}
 
+Assertion with Invalid Archive Name
+                      NOK       ${URL_TeamCity}    ${Username_TeamCity}    ${Password_TeamCity}    ${ID_Build}    ${EMPTY}          abc.zip
+
 Assert Behavior of Action when Username is Provided and Password is not Provided
                       NOK       ${URL_TeamCity}    ${Username_TeamCity}    ${EMPTY}                ${ID_Build}    ${EMPTY}          ${EMPTY}
 
@@ -55,7 +58,7 @@ Startup
 Retrieve Build Archive Template
     [Arguments]    ${OK_NOK}    ${TeamCity_URL}    ${Username}    ${Password}    ${Build_ID}    ${Location_To_Save}
     ...    ${Archive_Name}
-    [Documentation]    This test will retrieves build as archive from TeamCity.
+    [Documentation]    This test will retrieve build as archive from TeamCity.
     ...    Preconditions: Used TeamCity URL and Build ID should exist.
     ...    -${OK_NOK}: Boolean value indicate if the action is ENDED_OK or ENDED_NOT_OK. Value of this variable should be OK, NOK or OTHER.
     ...    -${TeamCity_URL}: This field specifies TeamCity URL.

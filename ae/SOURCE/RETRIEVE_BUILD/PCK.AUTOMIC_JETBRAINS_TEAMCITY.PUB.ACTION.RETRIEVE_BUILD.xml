@@ -66,7 +66,7 @@
 <PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD">
 <UC4RB_TMC_ARTIFACT_DIRs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_ARTIFACT_DIR#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
 <UC4RB_TMC_ARTIFACT_NAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_ARTIFACT_NAME#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
-<UC4RB_TMC_BUILD_IDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_ID#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
+<UC4RB_TMC_BUILD_IDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_ID#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD">0</UC4RB_TMC_BUILD_IDs.00>
 </PRPTBOX>
 </PROMPTSET>
 </node>
@@ -132,7 +132,7 @@
 <PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD">
 <UC4RB_TMC_ARTIFACT_DIRs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_ARTIFACT_DIR#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
 <UC4RB_TMC_ARTIFACT_NAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_ARTIFACT_NAME#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
-<UC4RB_TMC_BUILD_IDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_ID#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
+<UC4RB_TMC_BUILD_IDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_ID#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD">0</UC4RB_TMC_BUILD_IDs.00>
 </PRPTBOX>
 </PROMPTSET>
 </node>
@@ -214,7 +214,7 @@
 <PRPTBOX promptset="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD">
 <UC4RB_TMC_ARTIFACT_DIRs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_ARTIFACT_DIR#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
 <UC4RB_TMC_ARTIFACT_NAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_ARTIFACT_NAME#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
-<UC4RB_TMC_BUILD_IDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_ID#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD"/>
+<UC4RB_TMC_BUILD_IDs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_TMC_BUILD_ID#" promptsetname="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.RETRIEVE_BUILD">0</UC4RB_TMC_BUILD_IDs.00>
 </PRPTBOX>
 </PROMPTSET>
 </node>
@@ -331,9 +331,7 @@ Archive type will be of type 'zip' for retrieved artifact.
 = Failure Conditions =
 * If only one field is provided from username and password
 * If Archive file name contains any dot (.)
-* If Archive DIR does not contain slash as per the OS type.
-* If Archive file name contains any dot (.)
-* If archive file is not successfully created at specified archive path. 
+* If Archive file is not successfully created at specified archive path. 
 
 = Inputs =
 * Server IP or DNS  	: Specify URL to the TeamCity REST API endpoint. Eg. http://127.0.0.1/teamcity.

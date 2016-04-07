@@ -7,14 +7,14 @@
 <OH_SubType/>
 </HEADER>
 <SCRIPT mode="1" state="1">
-<MSCRI><![CDATA[! We escape double-quotes for java Strings
-: SET &TEMP# = STR_SUB("&TEMP_OPTION_VALUE#", """", "\""")
-
-! then we add double-quotes to String to preserve spaces in value
-: SET &TEMP# = STR_CAT("""", &TEMP#)
-: SET &TEMP# = STR_CAT(&TEMP#, """")
-
-: SET &UC4RB_TMC_OPTION_VALUE# = &TEMP#]]></MSCRI>
+<MSCRI><![CDATA[! We escape Based on operating system
+: SET &UC4RB_ESCAPED_STRING# = &UC4RB_TMC_ESCAPED_STRING#
+: IF &UC4RB_AGENT_OS# = "WINDOWS"
+:   INC PCK.ITPA_SHARED.PRV.INCLUDE.ESCAPE_CHARS@WINDOWS
+: ENDIF
+: IF &UC4RB_AGENT_OS# = "UNIX"
+:   INC PCK.ITPA_SHARED.PRV.INCLUDE.ESCAPE_CHARS@UNIX
+: ENDIF]]></MSCRI>
 </SCRIPT>
 <DOCU_Docu state="1" type="text">
 <DOC/>
