@@ -181,6 +181,7 @@
 : IF &UC4RB_TMC_ARTIFACT_DIR# EQ ""
 :   SET &UC4RB_TMC_ARTIFACT_DIR# = GET_VAR('UC_EX_PATH_TEMP', &AGENT#)
     ECHO RESOLVED_ARCHIVE_DIR::=&UC4RB_TMC_ARTIFACT_DIR#
+:   SET &ESC_ARCHIVE_DIR# = &UC4RB_TMC_ARTIFACT_DIR#
 : ENDIF
 
 !Appending trailing slash ('/') if not present
@@ -204,13 +205,14 @@
 !---------------------------------------------------------Creating Artifact path---------------------------------------------------------------------------------------------------------
 !      Config Archive file
 :      IF &UC4RB_TMC_ARTIFACT_NAME# EQ ""
-:        SET &UC4RB_TMC_ARTIFACT_NAME# = "buildarchive-&$RUNID#.zip"
+:        PSET &FULL_ARTIFACT_NAME# = "buildarchive-&$RUNID#.zip"
 :      ELSE
 :        INC PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.INCLUDE.ESCAPE_ARG_VALUE &UC4RB_TMC_ESCAPED_STRING# = &UC4RB_TMC_ARTIFACT_NAME#
-:        PSET &UC4RB_TMC_ARTIFACT_NAME# = STR_CAT("&UC4RB_ESCAPED_STRING#", ".zip")
+:        PSET &FULL_ARTIFACT_NAME# = STR_CAT("&UC4RB_ESCAPED_STRING#", ".zip")
 :      ENDIF
 
-:      SET &UC4RB_TMC_ARTIFACT_PATH# = STR_CAT(&FINAL_ARTIFACT_DIR#,&UC4RB_TMC_ARTIFACT_NAME#)
+:      SET &UC4RB_TMC_ARTIFACT_PATH# = STR_CAT(&FINAL_ARTIFACT_DIR#,&FULL_ARTIFACT_NAME#)
+
 
 !-------------------------------------Create cURL command to call Teamcity REST api---------------------------------------------------------------------------------------------------
 :      SET &AUTH_TYPE# = "httpAuth"
@@ -340,7 +342,7 @@ fi
 :  ENDIF
 :ENDIF
 
-:PSET &UC4RB_TMC_ARTIFACT_PATH# = STR_CAT(&RESOLVED_ARCHIVE_DIR#,&UC4RB_TMC_ARTIFACT_NAME#)
+:PSET &UC4RB_TMC_ARTIFACT_PATH# = STR_CAT(&RESOLVED_ARCHIVE_DIR#,&FULL_ARTIFACT_NAME#)
 ! Publishing Artifact path in case of success
 :IF &STATUS# = 0
 :  PUBLISH &UC4RB_TMC_ARTIFACT_PATH#,,"TOP"
