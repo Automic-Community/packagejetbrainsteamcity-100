@@ -7,15 +7,15 @@
 <OH_SubType/>
 </HEADER>
 <SCRIPT mode="1" state="1">
-<MSCRI><![CDATA[:SWITCH &$PLATFORM#
+<MSCRI><![CDATA[:SET &UC4RB_TMC_RETCODE# = 0
+:SWITCH &$PLATFORM#
 :CASE "WINDOWS"
   @echo off
   SET ERRORS=0
 :CASE "UNIX"
   errors=0
 :OTHER
-:ENDSWITCH
-:SET &UC4RB_TMC_RETCODE# = 0]]></MSCRI>
+:ENDSWITCH]]></MSCRI>
 </SCRIPT>
 <DOCU_Docu state="1" type="text">
 <DOC/>

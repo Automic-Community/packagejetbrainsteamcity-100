@@ -14,7 +14,8 @@
 : ENDIF
 : IF &UC4RB_AGENT_OS# = "UNIX"
 :   INC PCK.ITPA_SHARED.PRV.INCLUDE.ESCAPE_CHARS@UNIX
-: ENDIF]]></MSCRI>
+: ENDIF
+]]></MSCRI>
 </SCRIPT>
 <DOCU_Docu state="1" type="text">
 <DOC/>

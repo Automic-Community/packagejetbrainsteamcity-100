@@ -12,6 +12,7 @@
 
 =Supported versions=
 
+
 =Limitations=
 
 =Setup=
@@ -22,7 +23,9 @@ Following actions are supported:
 
 * Action Name: PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.GET_BUILD_STATE_STATUS
 * Action Description: This action gets the build's state and its status for a given build Id on TeamCity.
-]]></DOC>
+
+* Action Name: PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.TRIGGER_BUILD
+* Action Description: This action is used to trigger a build on Teamcity based on specified inputs.]]></DOC>
 </DOCU_Docu>
 </DOCU>
 </uc-export>
