@@ -140,17 +140,21 @@
 :   SET &UC4RB_TMC_CURL_CMD# = STR_CAT(&UC4RB_TMC_CURL_CMD#, "--request POST --header ""Content-Type:application/xml"" --data-binary @&UC4RB_TMC_CONFIGFILE#  --silent")
 
 
+!   Username
+:   SET &ESC_USERNAME# = STR_SUB("&UC4RB_TMC_USERNAME#", """", "\""")
 
 !-------------------------------------Execute curl cmd based on AGENT OS--------------------------------------------------------------------------------------
+:   SET &UC4RB_TMC_ERROR_MSG# = "ERROR COMMUNICATING WITH TEAMCITY. PLEASE CHECK INPUT PARAMETERS."
 :   SET &UC_WIN_TYP = GET_SCRIPT_VAR("UC_WIN_TYP")
 :   IF &UC4RB_AGENT_OS# = "WINDOWS"
 
 echo "INFO: CURL CMD: &UC4RB_TMC_CURL_CMD#"
 
 echo | set /p="UC4RB_TMC_RESP::="
-&UC4RB_TMC_CURL_CMD# -u "&UC4RB_TMC_USERNAME#:%UC4_DECRYPTED_PWD%" -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%%{http_code}\n"
+&UC4RB_TMC_CURL_CMD# -u "&ESC_USERNAME#:%UC4_DECRYPTED_PWD%" -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%%{http_code}\n"
 
 IF NOT %ERRORLEVEL% == 0 (
+    echo "ERROR: &UC4RB_TMC_ERROR_MSG#"
     SET ERRORS=1
 )
 :   ENDIF
@@ -161,10 +165,11 @@ echo "INFO: CURL CMD: &UC4RB_TMC_CURL_CMD#"
 
 echo -n "UC4RB_TMC_RESP::="
 
-&UC4RB_TMC_CURL_CMD# -u "&UC4RB_TMC_USERNAME#:$UC4_DECRYPTED_PWD" -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%{http_code}\n"
+&UC4RB_TMC_CURL_CMD# -u "&ESC_USERNAME#:$UC4_DECRYPTED_PWD" -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%{http_code}\n"
 
 if [ "$?" -gt "0" ]
 then
+  echo "ERROR: &UC4RB_TMC_ERROR_MSG#"
   errors=1
 fi
 :   ENDIF
@@ -192,6 +197,7 @@ fi
 :SET &UC4RB_TMC_RESP_HTTP_CODE# = ""
 :PSET &UC4RB_TMC_BUILD_ID# = ""
 
+:IF &STATUS# EQ 0
 :  SET &HND# = PREP_PROCESS_REPORT("JOBS",, "REP",,"COL=DELIMITER", 'DELIMITER=*::=*')
 :  PROCESS &HND#
 :    SET &KEY# = GET_PROCESS_LINE(&HND#,1)
@@ -215,19 +221,19 @@ fi
 :     MODIFY_STATE RETCODE=1
 !  Else if there is a response then read xml and publish build id
 :  ELSE
-:   IF &STATUS# EQ 0
 :     IF &UC4RB_TMC_RESP# <> ""
 :        SET &ROOTHND# = XML_OPEN(STRING, &UC4RB_TMC_RESP#)
 :        IF &ROOTHND# <> ""
 :             SET &UC4RB_TMC_BUILD_ID# = XML_GET_ATTRIBUTE(&ROOTHND#, "@id")
 :             PUBLISH &UC4RB_TMC_BUILD_ID#,,"TOP"
 :        ENDIF
+:        XML_CLOSE
 :     ELSE
 :        MODIFY_STATE STATUS_TEXT = "EMPTY RESPONSE FROM TEAMCITY."
 :        MODIFY_STATE RETCODE = 1
 :     ENDIF
-:   ENDIF
 :  ENDIF
+:ENDIF
 ]]></OSCRI>
 </POST_SCRIPT>
 <DOCU_Docu state="1" type="text">
