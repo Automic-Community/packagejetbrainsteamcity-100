@@ -7,7 +7,23 @@
 <OH_SubType/>
 </HEADER>
 <DOCU_Docu state="1" type="text">
-<DOC/>
+<DOC><![CDATA[About Automic's Jetbrains Teamcity Package
+================================
+
+
+=Supported versions=
+
+
+=Limitations=
+ 
+
+=Setup=
+
+=Actions=
+Following actions are supported for Jetbrains Teamcity:
+
+* Action Name: PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.TRIGGER_BUILD
+* Action Description: This action is used to trigger a build on Teamcity based on specified inputs.]]></DOC>
 </DOCU_Docu>
 </DOCU>
 </uc-export>
