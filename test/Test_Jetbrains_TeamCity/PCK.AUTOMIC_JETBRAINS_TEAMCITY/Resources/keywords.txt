@@ -85,7 +85,6 @@ Assert Success
 Assert Failure
     Action Report Should Be Found
     Action Return Status Should Be    ${ENDED_NOT_OK}
-    Action Return Code Should Be    ${RETURN_CODE_FAILURE}
     Action Return Code Should Not Equal    ${RETURN_CODE_SUCCESS}
 
 Assert Mandatory
