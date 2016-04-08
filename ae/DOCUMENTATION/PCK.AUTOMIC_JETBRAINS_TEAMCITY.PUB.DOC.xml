@@ -24,7 +24,7 @@ Jetbrains TeamCity REST API 9.0
 = Setup =
 * Oracle JDK 1.7 or higher must be installed on Agent OS and "java" must be set as executable on the same.
 
-* The Agent should be able to access the TeamCity REST endpoint in order to make HTTP requests. Also you should have authentication details to REST endpoint where guest login is not allowed.
+* The Agent should be able to access the TeamCity URL in order to make HTTP requests. Also you should have authentication details to REST endpoint where guest login is not allowed.
 
 * cURL should be installed on Agent OS. 
 	- To install cURL on windows download package from http://curl.haxx.se/download.html and unzip it at an appropriate location. Also update the PATH environment variable with location of curl.exe.
@@ -35,7 +35,7 @@ Jetbrains TeamCity REST API 9.0
 Following actions are supported:
 
 * Action Name: PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.TRIGGER_BUILD
-* Action Description: This action is used to trigger a build on Teamcity based on specified inputs.
+* Action Description: This action is used to trigger a build in Teamcity based on specified inputs.
 
 * Action Name: PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.GET_BUILD_STATE_STATUS
 * Action Description: This action gets the build's state and its status for a given build Id on TeamCity.

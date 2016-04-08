@@ -124,7 +124,6 @@
 !Either provide both username and password or both can be empty
 
 :SET &COUNT# = 0
-:SET &UC4RB_TMC_RETCODE# = "0"
 
 :IF &UC4RB_TMC_USERNAME# <> ""
 :  SET &COUNT# = &COUNT#+1
@@ -134,74 +133,76 @@
 :ENDIF
 
 :IF &COUNT# = 1
-:  SET &UC4RB_TMC_RETCODE# = "1"
-:  SET &UC4RB_LOGGING_ERROR# = "EITHER PROVIDE BOTH USERNAME AND PASSWORD OR BOTH CAN BE EMPTY"
+:  SET &UC4RB_TMC_RETCODE# = 1
+:  SET &UC4RB_LOGGING_ERROR# = "EITHER PROVIDE BOTH OR NONE OF THE OPTIONS(USERNAME,PASSWORD)"
 :  INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.ERROR
 
 :ELSE
 
-! Validating Directory if not empty
-: IF &UC4RB_TMC_ARTIFACT_DIR# <> ""
-:   INC PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.INCLUDE.ESCAPE_ARG_VALUE &UC4RB_TMC_ESCAPED_STRING# = &UC4RB_TMC_ARTIFACT_DIR#
-:   SET &ESC_ARCHIVE_DIR# = &UC4RB_ESCAPED_STRING#
-:   IF &UC4RB_AGENT_OS# = "WINDOWS"
-      cd /d "&ESC_ARCHIVE_DIR#" > nul
-      IF NOT %ERRORLEVEL%==0 (
-        SET ERRORS=%ERRORLEVEL%
-        ECHO "ERROR : INVALID ARCHIVE DIR"
+!  Validating Directory if not empty
+:  IF &UC4RB_TMC_ARTIFACT_DIR# <> ""
+:     INC PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.INCLUDE.ESCAPE_ARG_VALUE &UC4RB_TMC_ESCAPED_STRING# = &UC4RB_TMC_ARTIFACT_DIR#
+:     SET &ESC_ARCHIVE_DIR# = &UC4RB_ESCAPED_STRING#
+:     IF &UC4RB_AGENT_OS# = "WINDOWS"
+        cd /d "&ESC_ARCHIVE_DIR#" > nul
+        IF %ERRORLEVEL%==0 (
+            ECHO RESOLVED_ARCHIVE_DIR::=%CD%
         ) ELSE (
-           ECHO RESOLVED_ARCHIVE_DIR::=%CD%
+            SET ERRORS=%ERRORLEVEL%
+            ECHO "ERROR: INVALID DIRECTORY LOCATION &UC4RB_ESCAPED_STRING#"
         )
-:   ELSE
-:      IF &UC4RB_AGENT_OS# = "UNIX"
-       if [ -d "&ESC_ARCHIVE_DIR#" ] ;
-       then
-         ECHO "ERROR : INVALID ARCHIVE DIR"
-         errors=$?
-       else
-         echo RESOLVED_ARCHIVE_DIR::=$pwd
-       fi
+:     ELSE
+:        IF &UC4RB_AGENT_OS# = "UNIX"
+             if [ -d "&ESC_ARCHIVE_DIR#" ];
+             then
+                 if [ -w "&ESC_ARCHIVE_DIR#" ];
+                 then
+                   echo RESOLVED_ARCHIVE_DIR::=&ESC_ARCHIVE_DIR#
+                 else
+                   echo "ERROR: PERMISSION DENIED ON DIRECTORY &UC4RB_ESCAPED_STRING#"
+                   errors=1
+                 fi
+             else
+                 echo "ERROR: INVALID DIRECTORY LOCATION &UC4RB_ESCAPED_STRING#"
+                 errors=1
+             fi
+:         ENDIF
+:     ENDIF
+:   INC PCK.ITPA_SHARED.PRV.INCLUDE.CHANGE_DIRECTORY_TO_AGENT_BIN
 :   ENDIF
-: ENDIF
-: INC PCK.ITPA_SHARED.PRV.INCLUDE.CHANGE_DIRECTORY_TO_AGENT_BIN
-
-:ENDIF
 
 !Archive file name validation (It should not contain any dot)
-:IF &UC4RB_TMC_RETCODE# = "0"
+
 :   SET &POS# = STR_FIND(&UC4RB_TMC_ARTIFACT_NAME#,".")
 :   IF &POS# <> 0
-:     SET &UC4RB_TMC_RETCODE# = "1"
+:     SET &UC4RB_TMC_RETCODE# = 1
 :     SET &UC4RB_LOGGING_ERROR# = "PROVIDE ARCHIVE FILE NAME WITHOUT EXTENSION"
 :     INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.ERROR
 :   ENDIF
-:ENDIF
 
-! If Archive DIR is empty assign agents temp DIR
-: IF &UC4RB_TMC_ARTIFACT_DIR# EQ ""
-:   SET &UC4RB_TMC_ARTIFACT_DIR# = GET_VAR('UC_EX_PATH_TEMP', &AGENT#)
-    ECHO RESOLVED_ARCHIVE_DIR::=&UC4RB_TMC_ARTIFACT_DIR#
-:   SET &ESC_ARCHIVE_DIR# = &UC4RB_TMC_ARTIFACT_DIR#
-: ENDIF
+:   IF &UC4RB_TMC_RETCODE# = 0
+!   If Archive DIR is empty assign agents temp DIR
+:       IF &UC4RB_TMC_ARTIFACT_DIR# EQ ""
+:          SET &UC4RB_TMC_ARTIFACT_DIR# = GET_VAR('UC_EX_PATH_TEMP', &AGENT#)
+           echo RESOLVED_ARCHIVE_DIR::=&UC4RB_TMC_ARTIFACT_DIR#
+:          SET &ESC_ARCHIVE_DIR# = &UC4RB_TMC_ARTIFACT_DIR#
+:       ENDIF
 
 !Appending trailing slash ('/') if not present
-:IF &UC4RB_AGENT_OS# = "WINDOWS"
-:  INC PCK.ITPA_SHARED.PRV.INCLUDE.ADD_TRAILING_SLASH &UC4RB_CONVERTED_STRING# = &ESC_ARCHIVE_DIR#
-:  SET &FINAL_ARTIFACT_DIR# = &ESC_ARCHIVE_DIR#
-:  ELSE
-:    IF &UC4RB_AGENT_OS# = "UNIX"
-:      IF STR_ENDS_WITH(&ESC_ARCHIVE_DIR#,"/") = "N"
-:        SET &FINAL_ARTIFACT_DIR# = STR_CAT (&ESC_ARCHIVE_DIR#,"/")
-:      ELSE
-:        SET &FINAL_ARTIFACT_DIR# = &ESC_ARCHIVE_DIR#
-:      ENDIF
-:    ENDIF
-:  ENDIF
-:ENDIF
+:       IF &UC4RB_AGENT_OS# = "WINDOWS"
+:          INC PCK.ITPA_SHARED.PRV.INCLUDE.ADD_TRAILING_SLASH &UC4RB_CONVERTED_STRING# = &ESC_ARCHIVE_DIR#
+:          SET &FINAL_ARTIFACT_DIR# = &ESC_ARCHIVE_DIR#
+:       ELSE
+:          IF &UC4RB_AGENT_OS# = "UNIX"
+:              IF STR_ENDS_WITH(&ESC_ARCHIVE_DIR#,"/") = "N"
+:                  SET &FINAL_ARTIFACT_DIR# = STR_CAT (&ESC_ARCHIVE_DIR#,"/")
+:              ELSE
+:                  SET &FINAL_ARTIFACT_DIR# = &ESC_ARCHIVE_DIR#
+:              ENDIF
+:          ENDIF
+:       ENDIF
 
-!-----------------------------------------------------------Validation check ends-------------------------------------------------------------------------------------------------------
 
-:  IF &UC4RB_TMC_RETCODE# = "0"
 !---------------------------------------------------------Creating Artifact path---------------------------------------------------------------------------------------------------------
 !      Config Archive file
 :      IF &UC4RB_TMC_ARTIFACT_NAME# EQ ""
@@ -211,7 +212,7 @@
 :        PSET &FULL_ARTIFACT_NAME# = STR_CAT("&UC4RB_ESCAPED_STRING#", ".zip")
 :      ENDIF
 
-:      SET &UC4RB_TMC_ARTIFACT_PATH# = STR_CAT(&FINAL_ARTIFACT_DIR#,&FULL_ARTIFACT_NAME#)
+:      PSET &UC4RB_TMC_ARTIFACT_PATH# = STR_CAT(&FINAL_ARTIFACT_DIR#,&FULL_ARTIFACT_NAME#)
 
 
 !-------------------------------------Create cURL command to call Teamcity REST api---------------------------------------------------------------------------------------------------
@@ -226,7 +227,7 @@
 :      SET &UC4RB_TMC_CURL_CMD# = "curl -v "
 
 !      Teamcity url
-:      SET &UC4RB_TMC_ENDPOINT_URL# = STR_CAT(&UC4RB_TMC_URL#, "/&AUTH_TYPE#/app/rest/builds/id:&UC4RB_TMC_BUILD_ID#/artifacts/archived ")
+:      SET &UC4RB_TMC_ENDPOINT_URL# = STR_CAT(&UC4RB_TMC_URL#, "/&AUTH_TYPE#/app/rest/builds/id:&UC4RB_TMC_BUILD_ID#/artifacts/archived")
 :      INC PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.INCLUDE.ESCAPE_ARG_VALUE &UC4RB_TMC_ESCAPED_STRING# = &UC4RB_TMC_ENDPOINT_URL#
 :      SET &UC4RB_TMC_CURL_CMD# = STR_CAT(&UC4RB_TMC_CURL_CMD#, """&UC4RB_ESCAPED_STRING#"" ")
 
@@ -244,44 +245,47 @@
 :      ENDIF
 
 !-------------------------------------Execute curl cmd based on AGENT OS--------------------------------------------------------------------------------------
-:IF &UC4RB_AGENT_OS# = "WINDOWS"
+:      SET &UC4RB_TMC_ERROR_MSG# = "UNABLE TO CONNECT TO TEAMCITY. PLEASE CHECK INPUT PARAMETERS."
+
+:      IF &UC4RB_AGENT_OS# = "WINDOWS"
 IF %ERRORS%==0 (
 echo "INFO: CURL CMD: &UC4RB_TMC_CURL_CMD#"
 
-:IF &AUTH_TYPE# = "httpAuth"
+:          IF &AUTH_TYPE# = "httpAuth"
 &UC4RB_TMC_CURL_CMD# -u "&ESC_USERNAME#:%UC4_DECRYPTED_PWD%" -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%%{http_code}\n"
-:ELSE
+:          ELSE
 &UC4RB_TMC_CURL_CMD# -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%%{http_code}\n"
-:ENDIF
+:          ENDIF
 )
 IF NOT %ERRORLEVEL%==0 (
-      ECHO "ERROR: ERROR COMMUNICATING WITH TEAMCITY. CHECK INPUT PARAMETERS."
+      ECHO "ERROR: &UC4RB_TMC_ERROR_MSG#"
       SET ERRORS=%ERRORLEVEL%
 )
 
-:ELSE
+:      ELSE
 
-:IF &UC4RB_AGENT_OS# = "UNIX"
-if [ $errors -eq 0 ]
+:          IF &UC4RB_AGENT_OS# = "UNIX"
+if [ "$errors" -eq "0" ]
 then
-echo "INFO: CURL CMD: &UC4RB_TMC_CURL_CMD#"
-:IF &AUTH_TYPE# = "httpAuth"
-&UC4RB_TMC_CURL_CMD# -u "&ESC_USERNAME#:$UC4_DECRYPTED_PWD" -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%{http_code}\n"
-:ELSE
-&UC4RB_TMC_CURL_CMD# -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%{http_code}\n"
-:ENDIF
+:               INC PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.INCLUDE.ESCAPE_ARG_VALUE &UC4RB_TMC_ESCAPED_STRING# = &UC4RB_TMC_CURL_CMD#
+    echo "INFO: CURL CMD: &UC4RB_ESCAPED_STRING#"
+:               IF &AUTH_TYPE# = "httpAuth"
+    &UC4RB_TMC_CURL_CMD# -u "&ESC_USERNAME#:$UC4_DECRYPTED_PWD" -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%{http_code}\n"
+:               ELSE
+    &UC4RB_TMC_CURL_CMD# -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%{http_code}\n"
+:               ENDIF
 
-if [ "$?" -gt "0" ]
-then
-    echo "ERROR: ERROR COMMUNICATING WITH TEAMCITY. CHECK INPUT PARAMETERS."
-    errors=$?
+    if [ "$?" -gt "0" ]
+    then
+        echo "ERROR: &UC4RB_TMC_ERROR_MSG#"
+        errors=$?
+    fi
+
 fi
-
-fi
-:ENDIF
-:ENDIF
-
-:ENDIF
+:          ENDIF
+:       ENDIF
+:     ENDIF
+:  ENDIF
 ! Status messages
 :SET &UC4RB_LOGGING_INFO# = "******** RETRIEVE ARTIFACT CMD EXECUTED SUCCESSFULLY ********"
 :SET &UC4RB_LOGGING_ERROR# = "******** RETRIEVED ARTIFACT CMD FAILED ********"
@@ -324,28 +328,6 @@ fi
 :     MODIFY_STATE STATUS_TEXT="ERROR COMMUNICATING TEAMCITY."
 :     MODIFY_STATE RETCODE=1
 :     SET &STATUS#=1
-:ENDIF
-
-! Prepare Artifact path
-: SET &LENGTH# = STR_LENGTH(&RESOLVED_ARCHIVE_DIR#)
-:IF &LENGTH# > 0
-:  SET &END_CHAR# = STR_CUT(&RESOLVED_ARCHIVE_DIR#, &LENGTH#, 1)
-:ELSE
-:  SET &END_CHAR# = ""
-:ENDIF
-
-:IF &END_CHAR# <> "/" OR "\"
-:  IF &UC4RB_AGENT_OS# = "WINDOWS"
-:    SET &RESOLVED_ARCHIVE_DIR# = STR_CAT(&RESOLVED_ARCHIVE_DIR#, "\")
-:  ELSE
-:    SET &RESOLVED_ARCHIVE_DIR# = STR_CAT(&RESOLVED_ARCHIVE_DIR#, "/")
-:  ENDIF
-:ENDIF
-
-:PSET &UC4RB_TMC_ARTIFACT_PATH# = STR_CAT(&RESOLVED_ARCHIVE_DIR#,&FULL_ARTIFACT_NAME#)
-! Publishing Artifact path in case of success
-:IF &STATUS# = 0
-:  PUBLISH &UC4RB_TMC_ARTIFACT_PATH#,,"TOP"
 :ENDIF]]></OSCRI>
 </POST_SCRIPT>
 <DOCU_Docu state="1" type="text">

@@ -29,7 +29,7 @@ Assertion with Invalid Password
                       NOK       ${URL_TeamCity}    ${Username_TeamCity}    Invalid                 ${ID_Build}
 
 Assertion with Non-Existing Build ID
-                      NOK       ${URL_TeamCity}    ${Username_TeamCity}    ${Password_TeamCity}    Invalid
+                      NOK       ${URL_TeamCity}    ${Username_TeamCity}    ${Password_TeamCity}    0
 
 Assert Behavior of Action when Username is Provided and Password is not Provided
                       NOK       ${URL_TeamCity}    ${Username_TeamCity}    ${EMPTY}                ${ID_Build}
@@ -39,9 +39,6 @@ Assert Behavior of Action when Username is not Provided and Password is Provided
 
 Assert TeamCity URL as Mandatory field
                       OTHER     ${EMPTY}           ${Username_TeamCity}    ${Password_TeamCity}    ${ID_Build}
-
-Assert Build ID as Mandatory field
-                      OTHER     ${URL_TeamCity}    ${Username_TeamCity}    ${Password_TeamCity}    ${EMPTY}
 
 *** Keywords ***
 Startup

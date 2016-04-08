@@ -10,7 +10,7 @@
 <DESIGNER/>
 </PROMPTDESIGNER>
 <PROMPTSETXUI state="1">
-<XUIEDITOR><![CDATA[<dialog height="424" icon="PRPT" id="PRPTS" left="0" top="0" width="441"><readpanel fill="b" id="PRPTBOX" nl="1" scroll="v" text="Retrieve Build"><properties><entry name="text">Retrieve Build</entry><entry name="modifiable">0</entry></properties><integer alt="1" enabled="1" fill="b" focus="0" id="UC4RB_TMC_BUILD_IDs.00" max="" min="0" nl="1" text="Build Id" tooltip="Provide ID of the build that you want to retrieve as an archive. E.g 2">
+<XUIEDITOR><![CDATA[<dialog height="424" icon="PRPT" id="PRPTS" left="0" top="0" width="441"><readpanel fill="b" id="PRPTBOX" nl="1" scroll="v" text="Retrieve Build"><properties><entry name="text">Retrieve Build</entry><entry name="modifiable">0</entry></properties><integer alt="1" enabled="1" fill="b" focus="0" id="UC4RB_TMC_BUILD_IDs.00" max="" min="0" nl="1" text="Build Id" tooltip="Specify the Build Id to retrieve its artifacts. E.g 2">
       <properties>
         <entry listparam="N" name="reference" reftype="STATIC">UC_DATATYPE_NUMERIC</entry>
         <entry name="text">Build Id</entry>
@@ -20,10 +20,11 @@
         <entry name="id">UC4RB_TMC_BUILD_IDs.00</entry>
         <entry name="enabled">0</entry>
         <entry name="focus">0</entry>
-        <entry name="tooltip">Provide ID of the build that you want to retrieve as an archive. E.g 2</entry>
+        <entry name="tooltip">Specify the Build Id to retrieve its artifacts. E.g 2</entry>
         <entry name="modifiable">1</entry>
         <entry name="customfield"/>
-      <entry name="initvalue">0</entry></properties>
+      <entry name="initvalue">0</entry>
+         </properties>
     </integer><text alt="1" enabled="1" fill="b" focus="0" id="UC4RB_TMC_ARTIFACT_DIRs.00" inputassistance="0" len="" multiline="0" multilineIcon="0" nl="1" regex="" required="0" separator=";" showaspassword="0" text="Location to save" tooltip="Specify location to save retrieved archive file. E.g /home/ae/agent/temp" upper="0"><oninputassistant><command request="_internal" target="_view" targetaction="setAttribute" targetparam="promptname|@id"/><command request="_internal" target="_view" targetaction="setAttribute" targetparam="promptvalue|@value"/><command owner="_promptsetcontainer" owneraction="getData" request="getpromptinputassistance" target="_chainwindow"/></oninputassistant>
          
       <properties>
