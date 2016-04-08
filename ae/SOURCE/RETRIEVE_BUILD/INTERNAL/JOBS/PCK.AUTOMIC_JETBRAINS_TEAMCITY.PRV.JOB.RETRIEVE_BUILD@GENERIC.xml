@@ -122,106 +122,111 @@
 !-----------------------------------------------------------Validation check starts----------------------------------------------------------------------------------------------
 
 !Either provide both username and password or both can be empty
+: SET &COUNT# = 0
 
-:SET &COUNT# = 0
+: IF &UC4RB_TMC_USERNAME# <> ""
+:   SET &COUNT# = &COUNT#+1
+: ENDIF
+: IF &UC4RB_TMC_PASSWORD# <> ""
+:   SET &COUNT# = &COUNT#+1
+:  ENDIF
 
-:IF &UC4RB_TMC_USERNAME# <> ""
-:  SET &COUNT# = &COUNT#+1
-:ENDIF
-:IF &UC4RB_TMC_PASSWORD# <> ""
-:  SET &COUNT# = &COUNT#+1
-:ENDIF
+: IF &COUNT# = 1
+:   SET &UC4RB_TMC_RETCODE# = 1
+:   SET &UC4RB_LOGGING_ERROR# = "EITHER PROVIDE BOTH OR NONE OF THE OPTIONS(USERNAME,PASSWORD)"
+:   INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.ERROR
+: ENDIF
 
-:IF &COUNT# = 1
-:  SET &UC4RB_TMC_RETCODE# = 1
-:  SET &UC4RB_LOGGING_ERROR# = "EITHER PROVIDE BOTH OR NONE OF THE OPTIONS(USERNAME,PASSWORD)"
-:  INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.ERROR
-
-:ELSE
+: IF &UC4RB_TMC_ARTIFACT_DIR# = ""
+:    SET &UC4RB_TMC_ARTIFACT_DIR# = GET_VAR('UC_EX_PATH_TEMP', &AGENT#)
+: ENDIF
 
 !  Validating Directory if not empty
-:  IF &UC4RB_TMC_ARTIFACT_DIR# <> ""
-:     INC PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.INCLUDE.ESCAPE_ARG_VALUE &UC4RB_TMC_ESCAPED_STRING# = &UC4RB_TMC_ARTIFACT_DIR#
-:     SET &ESC_ARCHIVE_DIR# = &UC4RB_ESCAPED_STRING#
-:     IF &UC4RB_AGENT_OS# = "WINDOWS"
-        cd /d "&ESC_ARCHIVE_DIR#" > nul
-        IF %ERRORLEVEL%==0 (
-            ECHO RESOLVED_ARCHIVE_DIR::=%CD%
-        ) ELSE (
+: INC PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.INCLUDE.ESCAPE_ARG_VALUE &UC4RB_TMC_ESCAPED_STRING# = &UC4RB_TMC_ARTIFACT_DIR#
+: SET &ESC_ARCHIVE_DIR# = &UC4RB_ESCAPED_STRING#
+: IF &UC4RB_AGENT_OS# = "WINDOWS"
+       cd /d "&ESC_ARCHIVE_DIR#"
+       IF %ERRORLEVEL%==0 (
+            SET WINDIR=%CD%
+       ) ELSE (
             SET ERRORS=%ERRORLEVEL%
             ECHO "ERROR: INVALID DIRECTORY LOCATION &UC4RB_ESCAPED_STRING#"
-        )
-:     ELSE
-:        IF &UC4RB_AGENT_OS# = "UNIX"
-             if [ -d "&ESC_ARCHIVE_DIR#" ];
+       )
+: ELSE
+:      IF &UC4RB_AGENT_OS# = "UNIX"
+             cd "&ESC_ARCHIVE_DIR#"
+             errors=$?
+             if[ "$errors" -eq "0" ];
              then
-                 if [ -w "&ESC_ARCHIVE_DIR#" ];
+                unixdir=`pwd`
+                if [ ! -w $unixdir ];
                  then
-                   echo RESOLVED_ARCHIVE_DIR::=&ESC_ARCHIVE_DIR#
-                 else
-                   echo "ERROR: PERMISSION DENIED ON DIRECTORY &UC4RB_ESCAPED_STRING#"
-                   errors=1
-                 fi
+                    echo "ERROR: PERMISSION DENIED ON DIRECTORY &UC4RB_ESCAPED_STRING#"
+                    errors=1
+                fi
              else
                  echo "ERROR: INVALID DIRECTORY LOCATION &UC4RB_ESCAPED_STRING#"
                  errors=1
              fi
-:         ENDIF
-:     ENDIF
-:   INC PCK.ITPA_SHARED.PRV.INCLUDE.CHANGE_DIRECTORY_TO_AGENT_BIN
-:   ENDIF
+:      ENDIF
+: ENDIF
+: INC PCK.ITPA_SHARED.PRV.INCLUDE.CHANGE_DIRECTORY_TO_AGENT_BIN
 
 !Archive file name validation (It should not contain any dot)
+: SET &COUNT# = 0
+: SET &POS# = STR_FIND(&UC4RB_TMC_ARTIFACT_NAME#,".")
+: SET &COUNT# = &POS# + &COUNT#
+: SET &POS# = STR_FIND(&UC4RB_TMC_ARTIFACT_NAME#,"/")
+: SET &COUNT# = &POS# + &COUNT#
+: SET &POS# = STR_FIND(&UC4RB_TMC_ARTIFACT_NAME#,"\")
+: SET &COUNT# = &POS# + &COUNT#
 
-:   SET &POS# = STR_FIND(&UC4RB_TMC_ARTIFACT_NAME#,".")
-:   IF &POS# <> 0
-:     SET &UC4RB_TMC_RETCODE# = 1
-:     SET &UC4RB_LOGGING_ERROR# = "PROVIDE ARCHIVE FILE NAME WITHOUT EXTENSION"
-:     INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.ERROR
-:   ENDIF
+: IF &COUNT# <> 0
+:      SET &UC4RB_TMC_RETCODE# = 1
+:      SET &UC4RB_LOGGING_ERROR# = "ARCHIVE FILE NAME SHOULD NOT CONTAIN (/ \ .)."
+:      INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.ERROR
+: ENDIF
 
-:   IF &UC4RB_TMC_RETCODE# = 0
 !   If Archive DIR is empty assign agents temp DIR
-:       IF &UC4RB_TMC_ARTIFACT_DIR# EQ ""
-:          SET &UC4RB_TMC_ARTIFACT_DIR# = GET_VAR('UC_EX_PATH_TEMP', &AGENT#)
-           echo RESOLVED_ARCHIVE_DIR::=&UC4RB_TMC_ARTIFACT_DIR#
-:          SET &ESC_ARCHIVE_DIR# = &UC4RB_TMC_ARTIFACT_DIR#
-:       ENDIF
+! :       IF &UC4RB_TMC_ARTIFACT_DIR# EQ ""
+! :          SET &UC4RB_TMC_ARTIFACT_DIR# = GET_VAR('UC_EX_PATH_TEMP', &AGENT#)
+!            echo RESOLVED_ARCHIVE_DIR::=&UC4RB_TMC_ARTIFACT_DIR#
+! :          SET &ESC_ARCHIVE_DIR# = &UC4RB_TMC_ARTIFACT_DIR#
+! :       ENDIF
 
-!Appending trailing slash ('/') if not present
-:       IF &UC4RB_AGENT_OS# = "WINDOWS"
-:          INC PCK.ITPA_SHARED.PRV.INCLUDE.ADD_TRAILING_SLASH &UC4RB_CONVERTED_STRING# = &ESC_ARCHIVE_DIR#
-:          SET &FINAL_ARTIFACT_DIR# = &ESC_ARCHIVE_DIR#
-:       ELSE
-:          IF &UC4RB_AGENT_OS# = "UNIX"
-:              IF STR_ENDS_WITH(&ESC_ARCHIVE_DIR#,"/") = "N"
-:                  SET &FINAL_ARTIFACT_DIR# = STR_CAT (&ESC_ARCHIVE_DIR#,"/")
-:              ELSE
-:                  SET &FINAL_ARTIFACT_DIR# = &ESC_ARCHIVE_DIR#
-:              ENDIF
-:          ENDIF
-:       ENDIF
+! !Appending trailing slash ('/') if not present
+!  :       IF &UC4RB_AGENT_OS# = "WINDOWS"
+! :          INC PCK.ITPA_SHARED.PRV.INCLUDE.ADD_TRAILING_SLASH &UC4RB_CONVERTED_STRING# = &ESC_ARCHIVE_DIR#
+! :          SET &FINAL_ARTIFACT_DIR# = &ESC_ARCHIVE_DIR#
+! :       ELSE
+! :          IF &UC4RB_AGENT_OS# = "UNIX"
+! :              IF STR_ENDS_WITH(&ESC_ARCHIVE_DIR#,"/") = "N"
+! :                  SET &FINAL_ARTIFACT_DIR# = STR_CAT (&ESC_ARCHIVE_DIR#,"/")
+! :              ELSE
+! :                  SET &FINAL_ARTIFACT_DIR# = &ESC_ARCHIVE_DIR#
+! :              ENDIF
+! :          ENDIF
+! :       ENDIF
 
 
 !---------------------------------------------------------Creating Artifact path---------------------------------------------------------------------------------------------------------
+: IF &UC4RB_TMC_RETCODE# = 0
 !      Config Archive file
+:      SET &FNAME#=""
 :      IF &UC4RB_TMC_ARTIFACT_NAME# EQ ""
-:        PSET &FULL_ARTIFACT_NAME# = "buildarchive-&$RUNID#.zip"
+:           SET &FNAME# = "buildarchive-&$RUNID#.zip"
 :      ELSE
-:        INC PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.INCLUDE.ESCAPE_ARG_VALUE &UC4RB_TMC_ESCAPED_STRING# = &UC4RB_TMC_ARTIFACT_NAME#
-:        PSET &FULL_ARTIFACT_NAME# = STR_CAT("&UC4RB_ESCAPED_STRING#", ".zip")
+:           INC PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.INCLUDE.ESCAPE_ARG_VALUE &UC4RB_TMC_ESCAPED_STRING# = &UC4RB_TMC_ARTIFACT_NAME#
+:           SET &FNAME# = STR_CAT("&UC4RB_ESCAPED_STRING#", ".zip")
 :      ENDIF
-
-:      PSET &UC4RB_TMC_ARTIFACT_PATH# = STR_CAT(&FINAL_ARTIFACT_DIR#,&FULL_ARTIFACT_NAME#)
-
 
 !-------------------------------------Create cURL command to call Teamcity REST api---------------------------------------------------------------------------------------------------
 :      SET &AUTH_TYPE# = "httpAuth"
 
 :      IF &UC4RB_TMC_USERNAME# EQ ""
-:        IF &UC4RB_TMC_PASSWORD# EQ ""
-:          SET &AUTH_TYPE# = "guestAuth"
-:        ENDIF
+:           IF &UC4RB_TMC_PASSWORD# EQ ""
+:                SET &AUTH_TYPE# = "guestAuth"
+:           ENDIF
 :      ENDIF
 
 :      SET &UC4RB_TMC_CURL_CMD# = "curl -v "
@@ -231,7 +236,7 @@
 :      INC PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.INCLUDE.ESCAPE_ARG_VALUE &UC4RB_TMC_ESCAPED_STRING# = &UC4RB_TMC_ENDPOINT_URL#
 :      SET &UC4RB_TMC_CURL_CMD# = STR_CAT(&UC4RB_TMC_CURL_CMD#, """&UC4RB_ESCAPED_STRING#"" ")
 
-:      SET &UC4RB_TMC_CURL_CMD# = STR_CAT(&UC4RB_TMC_CURL_CMD#, "--request GET --header 'accept:application/octet-stream' --output &UC4RB_TMC_ARTIFACT_PATH#")
+:      SET &UC4RB_TMC_CURL_CMD# = STR_CAT(&UC4RB_TMC_CURL_CMD#, "--request GET --header 'accept:application/octet-stream' ")
 
 !      Username
 :      INC PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.INCLUDE.ESCAPE_ARG_VALUE &UC4RB_TMC_ESCAPED_STRING# = &UC4RB_TMC_USERNAME#
@@ -239,52 +244,53 @@
 
 !      Password
 :      IF &UC4RB_TMC_PASSWORD# NE ""
-!         Access key is decrypted and send to jar as argument
-:         SET &UC4RB_ENCRYPTED_PASSWORD_TMP# = "&UC4RB_TMC_PASSWORD#"
-:         INC PCK.ITPA_SHARED.PRV.INCLUDE.DECRYPT_PASSWORD
+!           Access key is decrypted and send to jar as argument
+:           SET &UC4RB_ENCRYPTED_PASSWORD_TMP# = "&UC4RB_TMC_PASSWORD#"
+:           INC PCK.ITPA_SHARED.PRV.INCLUDE.DECRYPT_PASSWORD
 :      ENDIF
 
 !-------------------------------------Execute curl cmd based on AGENT OS--------------------------------------------------------------------------------------
 :      SET &UC4RB_TMC_ERROR_MSG# = "UNABLE TO CONNECT TO TEAMCITY. PLEASE CHECK INPUT PARAMETERS."
 
 :      IF &UC4RB_AGENT_OS# = "WINDOWS"
-IF %ERRORS%==0 (
-echo "INFO: CURL CMD: &UC4RB_TMC_CURL_CMD#"
+            IF %ERRORS%==0 (
+                    ECHO RESOLVED_ARCHIVE_FILE::=%WINDIR%\&FNAME#
+                    echo "INFO: CURL CMD: &UC4RB_TMC_CURL_CMD#"
 
-:          IF &AUTH_TYPE# = "httpAuth"
-&UC4RB_TMC_CURL_CMD# -u "&ESC_USERNAME#:%UC4_DECRYPTED_PWD%" -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%%{http_code}\n"
-:          ELSE
-&UC4RB_TMC_CURL_CMD# -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%%{http_code}\n"
-:          ENDIF
-)
-IF NOT %ERRORLEVEL%==0 (
-      ECHO "ERROR: &UC4RB_TMC_ERROR_MSG#"
-      SET ERRORS=%ERRORLEVEL%
-)
+:                   IF &AUTH_TYPE# = "httpAuth"
+                            &UC4RB_TMC_CURL_CMD# -u "&ESC_USERNAME#:%UC4_DECRYPTED_PWD%" --output "%WINDIR%\&FNAME#" -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%%{http_code}\n"
+:                   ELSE
+                            &UC4RB_TMC_CURL_CMD# --output "%WINDIR%\&FNAME#" -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%%{http_code}\n"
+:                   ENDIF
+            )
+
+            IF NOT %ERRORLEVEL%==0 (
+                    ECHO "ERROR: &UC4RB_TMC_ERROR_MSG#"
+                    SET ERRORS=%ERRORLEVEL%
+            )
 
 :      ELSE
 
-:          IF &UC4RB_AGENT_OS# = "UNIX"
-if [ "$errors" -eq "0" ]
-then
-:               INC PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.INCLUDE.ESCAPE_ARG_VALUE &UC4RB_TMC_ESCAPED_STRING# = &UC4RB_TMC_CURL_CMD#
-    echo "INFO: CURL CMD: &UC4RB_ESCAPED_STRING#"
-:               IF &AUTH_TYPE# = "httpAuth"
-    &UC4RB_TMC_CURL_CMD# -u "&ESC_USERNAME#:$UC4_DECRYPTED_PWD" -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%{http_code}\n"
-:               ELSE
-    &UC4RB_TMC_CURL_CMD# -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%{http_code}\n"
-:               ENDIF
+:           IF &UC4RB_AGENT_OS# = "UNIX"
+                  if [ "$errors" -eq "0" ]
+                  then
+:                         INC PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.INCLUDE.ESCAPE_ARG_VALUE &UC4RB_TMC_ESCAPED_STRING# = &UC4RB_TMC_CURL_CMD#
+                          echo "INFO: CURL CMD: &UC4RB_ESCAPED_STRING#"
+                          echo RESOLVED_ARCHIVE_FILE::=$unixdir
+:                         IF &AUTH_TYPE# = "httpAuth"
+                                  &UC4RB_TMC_CURL_CMD# -u "&ESC_USERNAME#:$UC4_DECRYPTED_PWD" --output "$unixdir/&FNAME#" -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%{http_code}\n"
+:                         ELSE
+                                  &UC4RB_TMC_CURL_CMD# --output "$unixdir/&FNAME#" -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%{http_code}\n"
+:                         ENDIF
 
-    if [ "$?" -gt "0" ]
-    then
-        echo "ERROR: &UC4RB_TMC_ERROR_MSG#"
-        errors=$?
-    fi
-
-fi
-:          ENDIF
+                          if [ "$?" -gt "0" ]
+                          then
+                                  echo "ERROR: &UC4RB_TMC_ERROR_MSG#"
+                                  errors=$?
+                          fi
+                  fi
+:           ENDIF
 :       ENDIF
-:     ENDIF
 :  ENDIF
 ! Status messages
 :SET &UC4RB_LOGGING_INFO# = "******** RETRIEVE ARTIFACT CMD EXECUTED SUCCESSFULLY ********"
@@ -301,24 +307,21 @@ fi
 </OUTPUTSCAN>
 <POST_SCRIPT mode="1" replacementmode="1" state="1">
 <OSCRI><![CDATA[!Publish the artifact location
-:PSET &STATUS# = GET_UC_OBJECT_STATUS(,,"RETCODE")
+:SET &STATUS# = GET_UC_OBJECT_STATUS(,,"RETCODE")
 
 :IF &STATUS# = 0
+:SET &RESOLVED_ARCHIVE_FILE# = ""
 :SET &HND# = PREP_PROCESS_REPORT("JOBS",, "REP",,"COL=DELIMITER", 'DELIMITER=*::=*')
 :PROCESS &HND#
 :   SET &KEY# = GET_PROCESS_LINE(&HND#,1)
 :   SET &VALUE# = GET_PROCESS_LINE(&HND#,2)
-:   IF &KEY# <> ""
-:     IF &VALUE# <> ""
-:      IF &KEY# = "RESOLVED_ARCHIVE_DIR"
-:         SET &RESOLVED_ARCHIVE_DIR# = "&VALUE#"
+:      IF &KEY# = "RESOLVED_ARCHIVE_FILE"
+:         SET &RESOLVED_ARCHIVE_FILE# = "&VALUE#"
 :      ELSE
 :         IF &KEY# EQ "UC4RB_TMC_RESP_HTTP_CODE"
 :           SET &UC4RB_TMC_RESP_HTTP_CODE# = &VALUE#
 :           TERM_PROCESS
 :         ENDIF
-:     ENDIF
-:   ENDIF
 : ENDIF
 :ENDPROCESS
 :CLOSE_PROCESS &HND#
@@ -328,6 +331,8 @@ fi
 :     MODIFY_STATE STATUS_TEXT="ERROR COMMUNICATING TEAMCITY."
 :     MODIFY_STATE RETCODE=1
 :     SET &STATUS#=1
+:ELSE
+:     PUBLISH &RESOLVED_ARCHIVE_FILE#,,"TOP"
 :ENDIF]]></OSCRI>
 </POST_SCRIPT>
 <DOCU_Docu state="1" type="text">

@@ -325,18 +325,18 @@
 PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.RETRIEVE_BUILD
 
 = General description =
-This action is used to retrieve build artifatcs as an archive from TeamCity as per the specified inputs. Output of this action will be an AE variable having retrieved archive file path.
-Archive type will be of type 'zip' for retrieved artifact.
+This action is used to retrieve build artifact as an archive from TeamCity as per the specified inputs. Output of this action will be an AE variable having retrieved archive file path.
+Archive will be of the type 'zip' for retrieved artifact. User can access TeamCity anonymously as well.
     
 = Failure Conditions =
 * If user provides an extra trailing '/' in the TeamCity URL. (E.g. http://127.0.0.1:8082/)
 * If only one field is provided from username and password
 * If Archive file name contains any dot (.)
-* If Archive file is not successfully created at specified archive path. 
+* If Archive file is not successfully created at specified archive path.
 
 = Inputs =
 * TeamCity URL	 	: Specify URL to the TeamCity. Eg. http://127.0.0.1:8082.
-* Username	    	: Specify username for connections.
+* Username	    	: Specify username for connection.
 * Password	   	: Password to your username.
 * Build Id	   	: Specify the Build Id to retrieve its artifacts. E.g 2
 * Location to save	: Specify location to save retrieved archive file. E.g /home/ar/agent/temp
