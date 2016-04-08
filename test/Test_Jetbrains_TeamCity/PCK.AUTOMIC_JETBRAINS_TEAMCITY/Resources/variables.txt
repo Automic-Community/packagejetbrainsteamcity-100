@@ -4,9 +4,10 @@ Resource          ../../../Env/default.txt
 *** Variables ***
 #---- Promptset Fields --------------------------------------------------------------------------------------
 #----Global Variables----------------------------------------------------------------------------------------
-${URL_TeamCity}    localhost:82
+${URL_TeamCity}    192.168.115.108
 ${Username_TeamCity}    admin
 ${Password_TeamCity}    admin
+#----Get Build Status and Retrieve Build Archive------------------------------------------------------------
+${ID_Build}       2
 #----Trigger Build------------------------------------------------------------------------------------------
 ${Config_Build}    <build><buildType id="Mvnproject_Build"/></build>
-
