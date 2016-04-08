@@ -294,11 +294,11 @@ PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.GET_BUILD_STATE_STATUS
 This action gets the build's state and its status for a given build Id on TeamCity. User can anonymously access the TeamCity to get the build details.
 
 = Failure Conditions =
-* If user provides an extra trailing '/' in the TeamCity URL. (E.g. http://127.0.0.1/teamcity/)
+* If user provides an extra trailing '/' in the TeamCity URL. (E.g. http://127.0.0.1:8080/)
 * If only one of the option(Username, Password) is provided.
 
 = Inputs =
-* Teamcity URL		: Specify URL to the TeamCity.E.g. http://127.0.0.1/teamcity
+* Teamcity URL		: Specify URL to the TeamCity.E.g. http://127.0.0.1:8080
 * Username	    	: Specify username for connection.
 * Password	    	: Password to your username.
 * Build Id	  	: Specify the Build Id to retrieve its state and the status. E.g. 2

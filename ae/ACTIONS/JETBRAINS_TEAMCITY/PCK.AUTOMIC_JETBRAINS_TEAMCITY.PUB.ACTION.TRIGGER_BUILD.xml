@@ -315,7 +315,7 @@ This action is used to trigger a build in Teamcity based on specified inputs. Us
 </build>
 
 = Failure Conditions =
-* If user provides an extra trailing '/' in the TeamCity URL field. (E.g. http://127.0.0.1/teamcity/)
+* If user provides an extra trailing '/' in the TeamCity URL field. (E.g. http://127.0.0.1:8082/)
 
 = Inputs =
 * TeamCity URL  		: Specify URL to the TeamCity. Eg. http://127.0.0.1:8080
