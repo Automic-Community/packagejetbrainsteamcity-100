@@ -32,10 +32,10 @@ Assert TeamCity URL as Mandatory field
                       OTHER     ${EMPTY}           ${Username_TeamCity}    ${Password_TeamCity}    ${Config_Build}
 
 Assert Username as Mandatory field
-                      NOK       ${URL_TeamCity}    ${EMPTY}                ${Password_TeamCity}    ${Config_Build}
+                      OTHER     ${URL_TeamCity}    ${EMPTY}                ${Password_TeamCity}    ${Config_Build}
 
 Assert Password as Mandatory field
-                      NOK       ${URL_TeamCity}    ${Username_TeamCity}    ${EMPTY}                ${Config_Build}
+                      OTHER     ${URL_TeamCity}    ${Username_TeamCity}    ${EMPTY}                ${Config_Build}
 
 Assert Build Configuration as Mandatory field
                       OTHER     ${URL_TeamCity}    ${Username_TeamCity}    ${Password_TeamCity}    ${EMPTY}

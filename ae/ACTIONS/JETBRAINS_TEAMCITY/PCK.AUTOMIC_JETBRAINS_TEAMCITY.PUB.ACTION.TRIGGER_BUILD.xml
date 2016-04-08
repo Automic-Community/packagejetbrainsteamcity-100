@@ -303,7 +303,7 @@
 PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.ACTION.TRIGGER_BUILD
 
 = General description =
-This action is used to trigger a build in Teamcity based on specified inputs. User must provide Connection details and Build node configuration. The sample XML of build node is:
+This action is used to trigger a build in Teamcity based on specified inputs. User must provide Connection details and Build configuration. The sample XML of build configuration is:
 
 <build personal="true" branchName="logicBuildBranch">
     <buildType id="buildConfID"/>
@@ -315,11 +315,11 @@ This action is used to trigger a build in Teamcity based on specified inputs. Us
 </build>
 
 = Failure Conditions =
-* No Build configuration found for the specified input parameters.
+* If user provides an extra trailing '/' in the TeamCity URL field. (E.g. http://127.0.0.1/teamcity/)
 
 = Inputs =
-* Teamcity URL  		: Specify URL to the TeamCity REST API endpoint. E.g. www.myvcenter.com
-* Username	    		: Specify username for connections. E.g. username
+* TeamCity URL  		: Specify URL to the TeamCity. Eg. http://127.0.0.1:8080
+* Username	    		: Specify username for connection. E.g. username
 * Password	    		: Password to your username.
 * Build Configuration  		: Provide XML formatted configuration for the build.
 * Overwrite Agent   		: Overwrites the default agent
@@ -330,7 +330,7 @@ This action is used to trigger a build in Teamcity based on specified inputs. Us
 
 =Return Value=
 The action will publish the following AE variable:
-UC4RB_TMC_BUILD_ID : this will contain the build id generated after triggering build
+UC4RB_TMC_BUILD_ID : This will contain the build id generated after triggering build
 
 = Outputs =
 * Return code is 0 in case of success.
