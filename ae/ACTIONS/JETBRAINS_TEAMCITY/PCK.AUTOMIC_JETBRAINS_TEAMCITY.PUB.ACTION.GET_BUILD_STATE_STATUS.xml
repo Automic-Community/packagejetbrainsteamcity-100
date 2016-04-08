@@ -298,10 +298,10 @@ This action gets the build's state and its status for a given build Id on TeamCi
 * If only one of the option(Username, Password) is provided.
 
 = Inputs =
-* Teamcity URL		: Specify URL to the TeamCity REST API endpoint.E.g. http://127.0.0.1/teamcity
-* Username	    	: Specify username for connections.
+* Teamcity URL		: Specify URL to the TeamCity.E.g. http://127.0.0.1/teamcity
+* Username	    	: Specify username for connection.
 * Password	    	: Password to your username.
-* Build Id	  	: Provide ID of the build that you want to check the status. E.g. 2
+* Build Id	  	: Specify the Build Id to retrieve its state and the status. E.g. 2
 * Overwrite Agent   	: Overwrites the default agent
 * Overwrite Login   	: Overwrites the default login
 
