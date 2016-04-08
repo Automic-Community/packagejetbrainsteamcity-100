@@ -167,13 +167,13 @@
 
 :        SET &TMC_CURL_CMD# = STR_CAT(&TMC_CURL_CMD#, " --request GET --silent")
 
-!        Logging the cURL command formed
-         echo "CURL CMD: &TMC_CURL_CMD#"
 
 !        -------------------------------------Execute cURL cmd based on AGENT OS--------------------------------------------------------------------------------------
 :        SET &UC4RB_TMC_ERROR_MSG# = "UNABLE TO CONNECT TO TEAMCITY. PLEASE CHECK INPUT PARAMETERS."
 
 :        IF &UC4RB_AGENT_OS# = "WINDOWS"
+!        Logging the cURL command formed
+         echo "CURL CMD: &TMC_CURL_CMD#"
                echo | set /p="UC4RB_TMC_RESP::="
 :              IF &CRED# EQ 0
                       &TMC_CURL_CMD# -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%%{http_code}\n"
@@ -188,6 +188,8 @@
 :        ENDIF
 
 :        IF &UC4RB_AGENT_OS# = "UNIX"
+:              INC PCK.AUTOMIC_JETBRAINS_TEAMCITY.PUB.INCLUDE.ESCAPE_ARG_VALUE &UC4RB_TMC_ESCAPED_STRING# = &TMC_CURL_CMD#
+         echo "CURL CMD: &UC4RB_ESCAPED_STRING#"
                echo -n "UC4RB_TMC_RESP::="
 :              IF &CRED# EQ 0
                       &TMC_CURL_CMD# -w "\nUC4RB_TMC_RESP_HTTP_CODE::=%{http_code}\n"
