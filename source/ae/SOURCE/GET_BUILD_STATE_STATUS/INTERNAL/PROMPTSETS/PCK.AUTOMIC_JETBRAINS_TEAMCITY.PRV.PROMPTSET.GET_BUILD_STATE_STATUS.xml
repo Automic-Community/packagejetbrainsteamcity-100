@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?><uc-export clientvers="11.0.0">
+<PRPT name="PCK.AUTOMIC_JETBRAINS_TEAMCITY.PRV.PROMPTSET.GET_BUILD_STATE_STATUS">
+<HEADER state="1">
+<Title>Get build state and status</Title>
+<ArchiveKey1/>
+<ArchiveKey2/>
+<OH_SubType/>
+</HEADER>
+<PROMPTDESIGNER state="1">
+<DESIGNER/>
+</PROMPTDESIGNER>
+<PROMPTSETXUI state="1">
+<XUIEDITOR><![CDATA[<dialog height="424" icon="PRPT" id="PRPTS" left="0" top="0" width="441"><readpanel fill="b" id="PRPTBOX" nl="1" scroll="v" text="Get build state and status"><properties><entry name="text">Get build state and status</entry><entry name="modifiable">0</entry></properties><integer alt="1" enabled="1" fill="b" focus="0" id="UC4RB_TMC_BUILD_IDs.00" max="2147483647" min="0" nl="1" text="Build Id" tooltip="Specify the Build Id to retrieve its state and the status. E.g. 2">
+      <properties>
+        <entry listparam="N" name="reference" reftype="STATIC">UC_DATATYPE_NUMERIC</entry>
+        <entry name="text">Build Id</entry>
+        <entry name="min">0</entry>
+        <entry name="max">2147483647</entry>
+        <entry name="quotes"/>
+        <entry name="id">UC4RB_TMC_BUILD_IDs.00</entry>
+        <entry name="enabled">0</entry>
+        <entry name="focus">0</entry>
+        <entry name="tooltip">Specify the Build Id to retrieve its state and the status. E.g. 2</entry>
+        <entry name="modifiable">1</entry>
+        <entry name="customfield"/>
+      <entry name="initvalue">0</entry>
+         </properties>
+    </integer></readpanel></dialog>]]></XUIEDITOR>
+</PROMPTSETXUI>
+<PROMPTSETDATA state="1">
+<DATAEDITOR><![CDATA[<PRPTS ontop="1"><PRPTBOX><UC4RB_TMC_BUILD_IDs.00 haslist="0" msgnr="-1" msginsert="" altview="0" promptname="UC4RB_TMC_BUILD_ID#" ReadFromTable="OPSE">0</UC4RB_TMC_BUILD_IDs.00></PRPTBOX></PRPTS>]]></DATAEDITOR>
+</PROMPTSETDATA>
+<DOCU_Docu state="1" type="text">
+<DOC/>
+</DOCU_Docu>
+</PRPT>
+</uc-export>
